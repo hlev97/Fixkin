@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: ma.hu:compose-charts:0.3.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4d698e344608c2d8d8ba5dca12348aa4/transformed/compose-charts-0.3.4/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4d698e344608c2d8d8ba5dca12348aa4/transformed/compose-charts-0.3.4/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4d698e344608c2d8d8ba5dca12348aa4/transformed/compose-charts-0.3.4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/457a3af601c115fd38b699b7234088d4/transformed/compose-charts-0.3.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/457a3af601c115fd38b699b7234088d4/transformed/compose-charts-0.3.4/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/457a3af601c115fd38b699b7234088d4/transformed/compose-charts-0.3.4/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ma.hu/compose-charts/0.3.4/a34cb7fd583d155b855045739c8ee66b8676a3d8/compose-charts-0.3.4-javadoc.jar!/" />

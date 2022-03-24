@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: dev.chrisbanes.snapper:snapper:0.1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/04fb4f325b2e6dcb5dc73ec54da3a055/transformed/snapper-0.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/04fb4f325b2e6dcb5dc73ec54da3a055/transformed/snapper-0.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/04fb4f325b2e6dcb5dc73ec54da3a055/transformed/snapper-0.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/23c0293fb43b4fab13874f52317c3335/transformed/snapper-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/23c0293fb43b4fab13874f52317c3335/transformed/snapper-0.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/23c0293fb43b4fab13874f52317c3335/transformed/snapper-0.1.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/dev.chrisbanes.snapper/snapper/0.1.0/c621681a5443028ecce4ce4e7185ddddb06920b0/snapper-0.1.0-javadoc.jar!/" />
