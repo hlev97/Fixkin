@@ -1,5 +1,6 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.welcome
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.view.RoundedCorner
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -126,9 +127,6 @@ fun FinishButton(
                 modifier = Modifier
                     .wrapContentWidth(Alignment.CenterHorizontally),
                 onClick = onClick,
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White
-                ),
                 shape = RoundedCornerShape(25.dp)
             ) {
                 Text(
@@ -161,6 +159,30 @@ fun SecondWelcomePagePreview() {
 @Composable
 @Preview(showBackground = true)
 fun ThirdWelcomePagePreview() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        PagerScreen(page = WelcomePage.ThirdPage)
+    }
+}
+
+@Composable
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+fun FirstWelcomePageDarkPreview() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        PagerScreen(page = WelcomePage.FirstPage)
+    }
+}
+
+@Composable
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+fun SecondWelcomePageDarkPreview() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        PagerScreen(page = WelcomePage.SecondPage)
+    }
+}
+
+@Composable
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+fun ThirdWelcomePageDarkPreview() {
     Column(modifier = Modifier.fillMaxSize()) {
         PagerScreen(page = WelcomePage.ThirdPage)
     }
