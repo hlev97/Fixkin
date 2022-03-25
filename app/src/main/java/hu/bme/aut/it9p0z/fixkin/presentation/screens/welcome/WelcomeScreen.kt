@@ -99,7 +99,6 @@ fun PagerScreen(page: WelcomePage) {
                 .padding(top = 20.dp),
             text = page.description,
             style = MaterialTheme.typography.body1,
-            fontSize = 18.sp,
             textAlign = TextAlign.Center
         )
     }
@@ -132,7 +131,6 @@ fun FinishButton(
                 Text(
                     text = "I'm ready",
                     style = MaterialTheme.typography.button,
-                    fontSize = 28.sp,
                     modifier = Modifier.padding(horizontal = 15.dp, vertical = 5.dp)
                 )
             }
