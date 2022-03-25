@@ -25,7 +25,7 @@ data class LifeQualityTestResultLog(
     @ColumnInfo(name = "qs9") val question_9: Answer,
     @ColumnInfo(name = "qs10") val question_10: Answer,
 ) {
-    enum class Evaluation(text: String) {
+    enum class Evaluation(val text: String) {
         eval_1("no effect at all"),
         eval_2("small effect"),
         eval_3("moderate effect"),
@@ -54,7 +54,7 @@ data class LifeQualityTestResultLog(
         }
     }
 
-    enum class Answer(text: String, point: Int) {
+    enum class Answer(val text: String, val point: Int) {
         answer_1("Very much", 3),
         answer_2("A lot", 2),
         answer_3("A little", 1),
