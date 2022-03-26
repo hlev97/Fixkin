@@ -1,5 +1,6 @@
 package hu.bme.aut.it9p0z.fixkin.data.repository
 
+import androidx.lifecycle.LiveData
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.bme.aut.it9p0z.fixkin.presentation.data.repository.DataStoreRepository
@@ -12,10 +13,10 @@ class Repository @Inject constructor(
     private val conditionLogRepo: ConditionLogRepository
 ) {
     /**
-     * Test Results Table operations
+     * Condition Logs operations
      */
 
-    fun getAllConditionLog() = conditionLogRepo.getAllLogs()
+    fun getAllConditionLog(): LiveData<List<ConditionLog>> = conditionLogRepo.getAllLogs()
 
     suspend fun insertConditionLog(log: ConditionLog) { conditionLogRepo.insert(log) }
 
@@ -23,13 +24,15 @@ class Repository @Inject constructor(
 
     suspend fun deleteConditionLog(log: ConditionLog) { conditionLogRepo.delete(log) }
 
-    fun getConditionLog(id: Int) = conditionLogRepo.getLog(id)
+    fun getConditionLog(id: Int): LiveData<ConditionLog> = conditionLogRepo.getLog(id)
+
+    fun getLastConditionLog(): LiveData<ConditionLog> = conditionLogRepo.getLastLog()
 
     /**
-     * Condition Logs Table operations
+     * Test Results Table operations
      */
 
-    fun getAllTestResult() = lqtResultLogRepo.getAllLogs()
+    fun getAllTestResult(): LiveData<List<LifeQualityTestResultLog>> = lqtResultLogRepo.getAllLogs()
 
     suspend fun insertTestResult(result: LifeQualityTestResultLog) { lqtResultLogRepo.insert(result) }
 
@@ -37,7 +40,9 @@ class Repository @Inject constructor(
 
     suspend fun deleteTestResult(result: LifeQualityTestResultLog) { lqtResultLogRepo.delete(result) }
 
-    fun getTestResult(id: Int) = lqtResultLogRepo.getLog(id)
+    fun getTestResult(id: Int): LiveData<LifeQualityTestResultLog> = lqtResultLogRepo.getLog(id)
+
+    fun getLastTestResult(): LiveData<LifeQualityTestResultLog> = lqtResultLogRepo.getLastLog()
 
     /**
      * Preferences operations

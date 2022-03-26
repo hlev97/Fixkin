@@ -1,17 +1,21 @@
 package hu.bme.aut.it9p0z.fixkin.data.model
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @Entity(tableName = "test_results")
 data class LifeQualityTestResultLog(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = PersistenceConstants.lqt_date) val lqt_date: String,
-    @ColumnInfo(name = PersistenceConstants.lqt_score) val lqt_score: String,
-    @ColumnInfo(name = PersistenceConstants.lqt_evaluation) val lqt_evaluation: Evaluation,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int = 0,
+    @ColumnInfo(name = "date") val lqt_date: LocalDateTime,
+    @ColumnInfo(name = "score") val lqt_score: Int,
+    @ColumnInfo(name = "result") val lqt_result: Result,
 
     @ColumnInfo(name = "qs1") val question_1: Answer,
     @ColumnInfo(name = "qs2") val question_2: Answer,
@@ -25,18 +29,18 @@ data class LifeQualityTestResultLog(
     @ColumnInfo(name = "qs9") val question_9: Answer,
     @ColumnInfo(name = "qs10") val question_10: Answer,
 ) {
-    enum class Evaluation(val text: String) {
-        eval_1("no effect at all"),
-        eval_2("small effect"),
-        eval_3("moderate effect"),
-        eval_4("very large effect"),
-        eval_5("extremely large effect");
+    enum class Result(val text: String) {
+        result_1("no effect at all"),
+        result_2("small effect"),
+        result_3("moderate effect"),
+        result_4("very large effect"),
+        result_5("extremely large effect");
 
         companion object {
             @JvmStatic
             @TypeConverter
-            fun getByOrdinal(ordinal: Int): Evaluation? {
-                var ret: Evaluation? = null
+            fun getByOrdinal(ordinal: Int): Result? {
+                var ret: Result? = null
                 for (eval in values()) {
                     if (eval.ordinal == ordinal) {
                         ret = eval
@@ -48,7 +52,7 @@ data class LifeQualityTestResultLog(
 
             @JvmStatic
             @TypeConverter
-            fun toInt(eval: Evaluation): Int {
+            fun toInt(eval: Result): Int {
                 return eval.ordinal
             }
         }
@@ -83,5 +87,17 @@ data class LifeQualityTestResultLog(
                 return answer.ordinal
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @TypeConverter
+    fun fromTimestamp(value: Long?): LocalDateTime? {
+        return value?.let { LocalDateTime.ofInstant(Instant.ofEpochMilli(value), ZoneOffset.UTC) }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @TypeConverter
+    fun dateToTimestamp(date: LocalDateTime?): Long? {
+        return date?.atZone(ZoneOffset.UTC)?.toInstant()?.toEpochMilli()
     }
 }

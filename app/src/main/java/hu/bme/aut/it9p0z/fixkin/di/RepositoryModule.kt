@@ -11,6 +11,7 @@ import hu.bme.aut.it9p0z.fixkin.data.dao.ConditionLogDao
 import hu.bme.aut.it9p0z.fixkin.data.dao.LifeQualityTestResultLogDao
 import hu.bme.aut.it9p0z.fixkin.data.repository.ConditionLogRepository
 import hu.bme.aut.it9p0z.fixkin.data.repository.LifeQualityTestResultLogRepository
+import hu.bme.aut.it9p0z.fixkin.data.repository.Repository
 import hu.bme.aut.it9p0z.fixkin.presentation.data.repository.DataStoreRepository
 import javax.inject.Singleton
 

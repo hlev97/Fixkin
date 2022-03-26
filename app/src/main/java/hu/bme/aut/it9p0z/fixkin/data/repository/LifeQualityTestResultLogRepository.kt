@@ -10,12 +10,14 @@ class LifeQualityTestResultLogRepository(
 ) {
     fun getAllLogs(): LiveData<List<LifeQualityTestResultLog>> = dao.getLogs().asLiveData()
 
+    fun getLog(id: Int): LiveData<LifeQualityTestResultLog> = dao.getLog(id).asLiveData()
+
+    fun getLastLog(): LiveData<LifeQualityTestResultLog> = dao.getLastLog().asLiveData()
+
     suspend fun insert(log: LifeQualityTestResultLog) { dao.insertLog(log) }
 
     suspend fun update(log: LifeQualityTestResultLog) { dao.updateLog(log) }
 
     suspend fun delete(log: LifeQualityTestResultLog) { dao.deleteLog(log) }
-
-    fun getLog(id: Int): LiveData<LifeQualityTestResultLog> = dao.getLog(id).asLiveData()
 
 }

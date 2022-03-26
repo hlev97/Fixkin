@@ -1,16 +1,7 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.util
 
+import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog.Answer
 import hu.bme.aut.it9p0z.fixkin.util.TestQuestions
-
-enum class Answer(val text: String, val point: Int) {
-    answer_1("Very much", 3),
-    answer_2("A lot", 2),
-    answer_3("A little", 1),
-    answer_4("Not at all", 0),
-    answer_5("Not relevant", 0),
-    answer_6("Yes", 3),
-    answer_7("No", 0);
-}
 
 sealed class TestQuestion(
     val text: String,

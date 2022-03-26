@@ -10,11 +10,13 @@ class ConditionLogRepository(
 ) {
     fun getAllLogs(): LiveData<List<ConditionLog>> = dao.getLogs().asLiveData()
 
+    fun getLog(id: Int): LiveData<ConditionLog> = dao.getLog(id).asLiveData()
+
+    fun getLastLog(): LiveData<ConditionLog> = dao.getLastLog().asLiveData()
+
     suspend fun insert(log: ConditionLog) { dao.insertLog(log) }
 
     suspend fun update(log: ConditionLog) { dao.updateLog(log) }
 
     suspend fun delete(log: ConditionLog) { dao.deleteLog(log) }
-
-    fun getLog(id: Int): LiveData<ConditionLog> = dao.getLog(id).asLiveData()
 }

@@ -4,10 +4,42 @@ object PersistenceConstants {
     /**
      * Constants for 
      */
-    const val lqt_table = "dermatology life quality index table"
-    const val lqt_date = "date"
-    const val lqt_evaluation = "evaluation"
-    const val lqt_score = "score"
+
+    /**
+     * Constants for [ConditionLog] data class
+     */
+    const val condition_table = "conditions"
+    const val condition_date = "date"
+    const val condition_feeling = "feeling"
+
+    const val food_trigger_1 = "gluten"
+    const val food_trigger_2 = "milk"
+    const val food_trigger_3 = "lactose"
+    const val food_trigger_4 = "egg"
+    const val food_trigger_5 = "soy"
+    const val food_trigger_6 = "nightshade vegetable"
+    const val food_trigger_7 = "citrus fruit"
+    const val food_trigger_8 = "fast food"
+    const val food_trigger_9 = "fatty food"
+    const val food_trigger_10 = "alcohol"
+
+    const val weather_trigger_1 = "hot"
+    const val weather_trigger_2 = "dry"
+    const val weather_trigger_3 = "cold"
+    const val weather_trigger_4 = "rainy"
+    const val weather_trigger_5 = "windy"
+    const val weather_trigger_6 = "snowy"
+    const val weather_trigger_7 = "cold_weather_front"
+    const val weather_trigger_8 = "warm_weather_front"
+
+    const val mental_health_trigger_1 = "anxiety"
+    const val mental_health_trigger_2 = "depression"
+    const val mental_health_trigger_3 = "insomnia"
+
+    const val other_trigger_1 = "medicine"
+    const val other_trigger_2 = "infection"
+    const val other_trigger_3 = "smoking"
+    const val other_trigger_4 = "sweat"
 }
 
 object TestQuestions {

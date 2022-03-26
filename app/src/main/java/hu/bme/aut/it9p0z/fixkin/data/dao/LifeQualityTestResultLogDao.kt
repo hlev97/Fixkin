@@ -12,6 +12,9 @@ interface LifeQualityTestResultLogDao {
     @Query("SELECT * FROM test_results WHERE id=:id")
     fun getLog(id: Int): Flow<LifeQualityTestResultLog>
 
+    @Query("SELECT * FROM (SELECT * FROM test_results ORDER BY id DESC) LIMIT 1")
+    fun getLastLog(): Flow<LifeQualityTestResultLog>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLog(log: LifeQualityTestResultLog)
 

@@ -1,15 +1,19 @@
 package hu.bme.aut.it9p0z.fixkin.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.LifeQualityTestScreen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.MainScreen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.welcome.WelcomeScreen
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalPagerApi
 @ExperimentalAnimationApi
 @Composable
@@ -25,7 +29,10 @@ fun NavigationGraph(
             WelcomeScreen(navController = navController)
         }
         composable(route = Screen.Main.screen_route) {
-            MainScreen()
+            MainScreen(navController = navController)
+        }
+        composable(route = Screen.LifeQualityTest.screen_route) {
+            LifeQualityTestScreen(navController = navController)
         }
     }
 }

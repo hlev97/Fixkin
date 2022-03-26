@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Fixkin</string>
+    <string name="question_count"><![CDATA[ of %d]]></string>
 </resources>

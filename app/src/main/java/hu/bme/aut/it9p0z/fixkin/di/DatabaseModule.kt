@@ -8,6 +8,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import hu.bme.aut.it9p0z.fixkin.data.LogDatabase
+import hu.bme.aut.it9p0z.fixkin.data.dao.ConditionLogDao
+import hu.bme.aut.it9p0z.fixkin.data.dao.LifeQualityTestResultLogDao
 import javax.inject.Singleton
 
 @Module
@@ -24,5 +26,17 @@ object DatabaseModule {
             LogDatabase::class.java,
             "log_databse"
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideConditionLogDao(logDatabase: LogDatabase) : ConditionLogDao {
+        return logDatabase.ConditionLogDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLifeQualityTestResultLogDao(logDatabase: LogDatabase) : LifeQualityTestResultLogDao {
+        return logDatabase.LqtrDao()
     }
 }
