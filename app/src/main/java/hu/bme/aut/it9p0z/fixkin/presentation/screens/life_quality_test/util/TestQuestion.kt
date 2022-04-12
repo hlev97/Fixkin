@@ -5,7 +5,8 @@ import hu.bme.aut.it9p0z.fixkin.util.TestQuestions
 
 sealed class TestQuestion(
     val text: String,
-    val answers: List<Answer>
+    val answers: List<Answer>,
+    var answer: Answer? = null
 ) {
     object Qs1 : TestQuestion(
         text = TestQuestions.lqt_question_1,
