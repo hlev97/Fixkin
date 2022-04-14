@@ -23,7 +23,7 @@ fun MainScreen(
             text = "This is the Main screen",
             fontSize = 28.sp
         )
-        Button(onClick = { navController.navigate(Screen.LifeQualityTest.screen_route) }) {
+        Button(onClick = { navController.navigate(Screen.AddConditionLog.screen_route) }) {
 
         }
     }

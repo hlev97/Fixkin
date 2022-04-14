@@ -6,4 +6,5 @@ sealed class Screen (
     object Welcome : Screen("welcome")
     object Main : Screen("main")
     object LifeQualityTest: Screen("test")
+    object AddConditionLog: Screen("add_log")
 }
