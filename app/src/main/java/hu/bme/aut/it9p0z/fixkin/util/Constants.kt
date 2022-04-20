@@ -29,8 +29,8 @@ object PersistenceConstants {
     const val weather_trigger_4 = "rainy"
     const val weather_trigger_5 = "windy"
     const val weather_trigger_6 = "snowy"
-    const val weather_trigger_7 = "cold_weather_front"
-    const val weather_trigger_8 = "warm_weather_front"
+    const val weather_trigger_7 = "cold weather front"
+    const val weather_trigger_8 = "warm weather front"
 
     const val mental_health_trigger_1 = "anxiety"
     const val mental_health_trigger_2 = "depression"

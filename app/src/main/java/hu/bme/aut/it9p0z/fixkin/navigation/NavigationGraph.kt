@@ -6,10 +6,13 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.add_condition_log.AddConditionLogScreen
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log.CheckConditionLogScreen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.LifeQualityTestScreen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.MainScreen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.welcome.WelcomeScreen
@@ -39,6 +42,14 @@ fun NavigationGraph(
         }
         composable(route = Screen.AddConditionLog.screen_route) {
             AddConditionLogScreen(navController = navController)
+        }
+        composable(
+            route = Screen.CheckConditionLog.screen_route,
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            })
+        ) {
+            CheckConditionLogScreen(navController = navController)
         }
     }
 }

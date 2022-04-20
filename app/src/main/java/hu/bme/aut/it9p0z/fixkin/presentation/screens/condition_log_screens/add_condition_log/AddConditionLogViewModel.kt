@@ -12,5 +12,5 @@ class AddConditionLogViewModel @Inject constructor(
 ) : ViewModel() {
     suspend fun insertConditionLog(log: ConditionLog) { repository.insertConditionLog(log = log) }
 
-    var feelingValue = ConditionLog.Feeling.feeling_1;
+    var feelingValue = ConditionLog.Feeling.feeling_1
 }

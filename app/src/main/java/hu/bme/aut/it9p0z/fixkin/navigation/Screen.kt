@@ -7,4 +7,9 @@ sealed class Screen (
     object Main : Screen("main")
     object LifeQualityTest: Screen("test")
     object AddConditionLog: Screen("add_log")
+    object CheckConditionLog: Screen("check_log/{id}") {
+        fun passId(id: Int): String {
+            return "check_log/$id"
+        }
+    }
 }

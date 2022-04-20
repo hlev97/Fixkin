@@ -16,7 +16,7 @@ class Repository @Inject constructor(
      * Condition Logs operations
      */
 
-    fun getAllConditionLog(): LiveData<List<ConditionLog>> = conditionLogRepo.getAllLogs()
+    fun getAllConditionLog(): Flow<List<ConditionLog>> = conditionLogRepo.getAllLogs()
 
     suspend fun insertConditionLog(log: ConditionLog) { conditionLogRepo.insert(log) }
 
@@ -24,7 +24,7 @@ class Repository @Inject constructor(
 
     suspend fun deleteConditionLog(log: ConditionLog) { conditionLogRepo.delete(log) }
 
-    fun getConditionLog(id: Int): LiveData<ConditionLog> = conditionLogRepo.getLog(id)
+    fun getConditionLog(id: Int): Flow<ConditionLog> = conditionLogRepo.getLog(id)
 
     fun getLastConditionLog(): LiveData<ConditionLog> = conditionLogRepo.getLastLog()
 

@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import hu.bme.aut.it9p0z.fixkin.data.dao.ConditionLogDao
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
+import kotlinx.coroutines.flow.Flow
 
 class ConditionLogRepository(
     private val dao: ConditionLogDao
 ) {
-    fun getAllLogs(): LiveData<List<ConditionLog>> = dao.getLogs().asLiveData()
+    fun getAllLogs(): Flow<List<ConditionLog>> = dao.getLogs()
 
-    fun getLog(id: Int): LiveData<ConditionLog> = dao.getLog(id).asLiveData()
+    fun getLog(id: Int): Flow<ConditionLog> = dao.getLog(id)
 
     fun getLastLog(): LiveData<ConditionLog> = dao.getLastLog().asLiveData()
 
