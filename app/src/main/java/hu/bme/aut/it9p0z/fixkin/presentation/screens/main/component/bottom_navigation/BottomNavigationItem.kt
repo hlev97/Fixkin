@@ -1,4 +1,4 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.bottom_navigation
+package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.bottom_navigation
 
 import hu.bme.aut.it9p0z.fixkin.R
 

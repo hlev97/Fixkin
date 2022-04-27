@@ -3,6 +3,7 @@ package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.chec
 import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,6 +28,10 @@ fun CheckConditionLogScreen(
     navController: NavHostController,
     checkConditionLogViewModel: CheckConditionLogViewModel = hiltViewModel()
 ) {
+    BackHandler {
+        navController.navigate(Screen.Main.screen_route)
+    }
+
     val selectedConditionLog = checkConditionLogViewModel.selectedConditionLog.value
     if (selectedConditionLog != null) {
         Log.i("${selectedConditionLog.date}", "null check")

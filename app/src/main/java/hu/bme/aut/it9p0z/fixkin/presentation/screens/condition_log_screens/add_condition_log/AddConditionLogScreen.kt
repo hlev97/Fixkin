@@ -2,6 +2,7 @@ package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.add_
 
 import android.os.Build
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -15,6 +16,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.flowlayout.FlowRow
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
@@ -32,6 +34,10 @@ fun AddConditionLogScreen(
     navController: NavHostController,
     addConditionLogViewModel: AddConditionLogViewModel = hiltViewModel()
 ) {
+    BackHandler {
+        navController.navigate(Screen.Main.screen_route)
+    }
+
     val scope = rememberCoroutineScope()
     Scaffold(
         modifier = Modifier.fillMaxWidth(),
@@ -72,7 +78,9 @@ fun AddConditionLogScreen(
                 )
             )
             Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 10.dp, bottom = 15.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp, bottom = 15.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 feelings.forEach { feeling ->

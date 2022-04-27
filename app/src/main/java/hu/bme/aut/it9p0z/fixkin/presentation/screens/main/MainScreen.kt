@@ -10,21 +10,26 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import hu.bme.aut.it9p0z.fixkin.navigation.MainScreenNavigationGraph
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.bottom_navigation.BottomNav
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.MainTopAppBar
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.bottom_navigation.BottomNav
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterialApi::class)
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -42,10 +47,54 @@ fun MainScreen(
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
+    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
+
+    val bottomBarHeight = 55.dp
+    val bottomBarHeightPx = with(LocalDensity.current) {
+        bottomBarHeight.roundToPx().toFloat()
+    }
+    val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
+
+    val onStatistics by remember { mutableStateOf(false) }
+    val state = remember { mutableStateOf(0) }
+
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(
+                available: Offset,
+                source: NestedScrollSource
+            ): Offset {
+                val delta = available.y
+                val newOffsetForBottomAppBar = bottomBarOffsetHeightPx.value + delta
+                bottomBarOffsetHeightPx.value =
+                    newOffsetForBottomAppBar.coerceIn(-bottomBarHeightPx, 0f)
+                return Offset.Zero
+            }
+        }
+    }
+
     Scaffold(
-        modifier = Modifier.fillMaxWidth(),
+        scaffoldState = scaffoldState,
+        modifier = Modifier.fillMaxWidth().nestedScroll(nestedScrollConnection),
+        topBar = {
+            MainTopAppBar(
+                modifier = Modifier,
+                openSideBar = {
+                    scope.launch {
+                        scaffoldState.drawerState.open()
+                    }
+                }
+            )
+        },
         bottomBar = {
             BottomNav(
+                modifier = Modifier
+                    .height(bottomBarHeight)
+                    .offset {
+                        IntOffset(
+                            x = 0,
+                            y = -bottomBarOffsetHeightPx.value.roundToInt())
+                    },
                 navController = mainNavController,
                 onClick = {
                     openMenu.value = false
@@ -68,15 +117,41 @@ fun MainScreen(
         },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
+        drawerContent = {
+            Button(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(0.9f),
+                onClick = {  },
+                content = { Text("Diary") }
+            )
+            Button(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(0.9f),
+                onClick = {  },
+                content = { Text("Gallery") }
+            )
+            Button(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(0.9f),
+                onClick = {  },
+                content = { Text("Settings") }
+            )
+        }
     ) {
         ModalBottomSheetLayout(
             sheetShape = RoundedCornerShape(15.dp),
             sheetBackgroundColor = Color.White,
-            modifier = Modifier,
             sheetState = sheetState,
             sheetContent = {
                 LazyColumn(
                     modifier = Modifier
+                        .fillMaxSize()
                         .padding(bottom = 80.dp)
                         .align(Alignment.CenterHorizontally),
                     horizontalAlignment = Alignment.CenterHorizontally

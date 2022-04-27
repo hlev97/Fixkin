@@ -25,12 +25,13 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ListItem(
+    modifier: Modifier,
     log: ConditionLog,
     onClick: (conditionLogId: Int) -> Unit
 ) {
     val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(0.9f)
             .clip(RoundedCornerShape(25.dp))
             .clickable { onClick(log.id) },

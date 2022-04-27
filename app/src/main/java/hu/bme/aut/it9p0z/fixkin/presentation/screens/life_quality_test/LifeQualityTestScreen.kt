@@ -2,6 +2,7 @@ package hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test
 
 import android.os.Build
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -34,6 +35,10 @@ fun LifeQualityTestScreen(
 ) {
     val scope = rememberCoroutineScope()
     val selectionStates = remember { mutableStateMapOf<Int, Int>()}
+
+    BackHandler {
+        navController.navigate(Screen.Main.screen_route)
+    }
 
     LazyColumn(
         modifier = Modifier

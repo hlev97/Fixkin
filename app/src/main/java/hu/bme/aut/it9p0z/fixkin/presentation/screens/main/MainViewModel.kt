@@ -14,6 +14,7 @@ import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.data.repository.ConditionLogRepository
 import hu.bme.aut.it9p0z.fixkin.data.repository.Repository
 import hu.bme.aut.it9p0z.fixkin.presentation.data.repository.DataStoreRepository
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.util.HistoryState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
