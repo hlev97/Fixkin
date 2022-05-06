@@ -1,38 +1,19 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.content.trigger_chart
 
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Text
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.data.countFoodTriggerFrequency
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_1
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_10
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_2
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_3
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_4
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_5
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_6
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_7
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_8
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.food_trigger_9
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.mental_health_trigger_1
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.mental_health_trigger_2
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.mental_health_trigger_3
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.other_trigger_1
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.other_trigger_2
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.other_trigger_3
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.other_trigger_4
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.weather_trigger_1
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.weather_trigger_2
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.weather_trigger_3
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.weather_trigger_4
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.weather_trigger_5
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.weather_trigger_6
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.weather_trigger_7
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants.weather_trigger_8
+import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.ma.charts.legend.data.LegendPosition
+import hu.ma.charts.line.data.LineChartData
 import hu.ma.charts.pie.data.PieChartData
 import hu.ma.charts.pie.data.PieChartEntry
+import java.time.format.DateTimeFormatter
 
 val SimpleColors = listOf(
     Color.Black,
@@ -64,3 +45,35 @@ fun triggersData(
     )
 }
 
+private fun seriesLifeQuality(
+    result: List<LifeQualityTestResultLog>
+): List<LineChartData.SeriesData.Point> {
+    val series = mutableListOf<LineChartData.SeriesData.Point>()
+    result.forEachIndexed { i, log ->
+        series.add(i, LineChartData.SeriesData.Point(i, log.lqt_score.toFloat()))
+    }
+    return series
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+private fun xLabels(result: List<LifeQualityTestResultLog>): List<String> {
+    val xLabels = mutableListOf<String>()
+    result.forEachIndexed { i, log ->
+        xLabels.add(i, log.id.toString())
+    }
+    return xLabels
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun getLineData(
+    result: List<LifeQualityTestResultLog>
+) = LineChartData(
+    series = listOf(
+        LineChartData.SeriesData(
+            "",
+            points = seriesLifeQuality(result),
+            Color.Red
+        )
+    ),
+    xLabels = xLabels(result)
+)

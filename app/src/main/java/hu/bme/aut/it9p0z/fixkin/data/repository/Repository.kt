@@ -32,7 +32,7 @@ class Repository @Inject constructor(
      * Test Results Table operations
      */
 
-    fun getAllTestResult(): LiveData<List<LifeQualityTestResultLog>> = lqtResultLogRepo.getAllLogs()
+    fun getAllTestResult(): Flow<List<LifeQualityTestResultLog>> = lqtResultLogRepo.getAllLogs()
 
     suspend fun insertTestResult(result: LifeQualityTestResultLog) { lqtResultLogRepo.insert(result) }
 

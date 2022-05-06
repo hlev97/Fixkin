@@ -2,6 +2,7 @@ package hu.bme.aut.it9p0z.fixkin.presentation.screens.main
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,6 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
 import hu.bme.aut.it9p0z.fixkin.navigation.MainScreenNavigationGraph
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.MainTopAppBar
@@ -31,7 +35,7 @@ import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.bottom_navig
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalPagerApi::class)
 @SuppressLint("StateFlowValueCalledInComposition")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -40,6 +44,8 @@ fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val allConditionLogs = mainViewModel.allConditionLogs.value
+    val allLifeQualityTestResultLogs = mainViewModel.allLifeQualityTestResultLogs.value
+    Log.i("$allLifeQualityTestResultLogs.size", "size")
     val mainNavController = rememberNavController()
 
     val openMenu = remember { mutableStateOf(false) }
@@ -47,16 +53,11 @@ fun MainScreen(
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
-    val scaffoldState = rememberScaffoldState(rememberDrawerState(DrawerValue.Closed))
-
     val bottomBarHeight = 55.dp
     val bottomBarHeightPx = with(LocalDensity.current) {
         bottomBarHeight.roundToPx().toFloat()
     }
     val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
-
-    val onStatistics by remember { mutableStateOf(false) }
-    val state = remember { mutableStateOf(0) }
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
@@ -74,16 +75,10 @@ fun MainScreen(
     }
 
     Scaffold(
-        scaffoldState = scaffoldState,
         modifier = Modifier.fillMaxWidth().nestedScroll(nestedScrollConnection),
         topBar = {
             MainTopAppBar(
-                modifier = Modifier,
-                openSideBar = {
-                    scope.launch {
-                        scaffoldState.drawerState.open()
-                    }
-                }
+                modifier = Modifier
             )
         },
         bottomBar = {
@@ -98,7 +93,7 @@ fun MainScreen(
                 navController = mainNavController,
                 onClick = {
                     openMenu.value = false
-                }
+                },
             )
         },
         floatingActionButton = {
@@ -116,33 +111,7 @@ fun MainScreen(
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
-        isFloatingActionButtonDocked = true,
-        drawerContent = {
-            Button(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 16.dp)
-                    .fillMaxWidth(0.9f),
-                onClick = {  },
-                content = { Text("Diary") }
-            )
-            Button(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 16.dp)
-                    .fillMaxWidth(0.9f),
-                onClick = {  },
-                content = { Text("Gallery") }
-            )
-            Button(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(top = 16.dp)
-                    .fillMaxWidth(0.9f),
-                onClick = {  },
-                content = { Text("Settings") }
-            )
-        }
+        isFloatingActionButtonDocked = true
     ) {
         ModalBottomSheetLayout(
             sheetShape = RoundedCornerShape(15.dp),
@@ -183,7 +152,8 @@ fun MainScreen(
             MainScreenNavigationGraph(
                 mainNavController = mainNavController,
                 navController = navController,
-                allConditionLogs = allConditionLogs
+                allConditionLogs = allConditionLogs,
+                result = allLifeQualityTestResultLogs
             )
         }
     }

@@ -1,104 +1,116 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.pager.*
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.content.ChartContainer
+import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.content.trigger_chart.getLineData
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.content.trigger_chart.triggersData
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.data.buildValuePercentString
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.data.countFoodTriggerFrequency
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.data.foodTriggerCategories
-import hu.ma.charts.legend.data.LegendEntry
-import hu.ma.charts.pie.PieChart
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.data.*
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.pages.LinesSimpleScreen
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.pages.TabScreen
+import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.O)
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun StatisticsScreen(
-    allConditionLogs: List<ConditionLog>
+    allConditionLogs: List<ConditionLog>,
+    result: List<LifeQualityTestResultLog>
 ) {
-    val foodTriggerFrequency = countFoodTriggerFrequency(allConditionLogs)
-    val foodTriggerCategories = foodTriggerCategories
-    val data = triggersData(
-        foodTriggerFrequency,
-        foodTriggerCategories
-    )
+    val pagerState = rememberPagerState(0)
+    val list = listOf("Food", "Weather", "Mental Health", "Other", "DLQI")
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        contentPadding = PaddingValues(
-            top = 24.dp,
-            bottom = 24.dp,
-        ),
-    ) {
-        item {
-            ChartContainer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .border(
-                        BorderStroke(1.dp, Color.LightGray),
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                    .padding(16.dp)
-                    .animateContentSize(),
-                title = "Food triggers"
-            ) {
-                PieChart(
-                    data = data,
-                    legend = { entries ->
-                        CustomVerticalLegend(entries = entries)
-                    }
-                )
-            }
-        }
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Tabs(pagerState = pagerState, list)
+        TabsContent(pagerState = pagerState, list.size, allConditionLogs, result)
     }
 }
 
+@ExperimentalPagerApi
 @Composable
-private fun RowScope.CustomVerticalLegend(entries: List<LegendEntry>) {
-    Column(
-        modifier = Modifier.Companion.weight(1f),
+fun Tabs(pagerState: PagerState, tabs: List<String>) {
+    val scope = rememberCoroutineScope()
+    ScrollableTabRow(
+        selectedTabIndex = pagerState.currentPage,
+        contentColor = Color.White,
+        divider = {
+            TabRowDefaults.Divider(
+                thickness = 2.dp,
+            )
+        },
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(
+                Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
+                height = 2.dp,
+                color = Color.White
+            )
+        }
     ) {
-        entries.forEachIndexed { idx, item ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 14.dp)
-            ) {
-                Box(
-                    Modifier
-                        .requiredSize(item.shape.size)
-                        .background(item.shape.color, item.shape.shape)
-                )
-
-                Spacer(modifier = Modifier.requiredSize(8.dp))
-
-                Text(
-                    text = item.text,
-                    style = MaterialTheme.typography.caption
-                )
-                Spacer(modifier = Modifier.weight(1f))
-
-                Text(
-                    text = buildValuePercentString(item),
-                    style = MaterialTheme.typography.caption,
-                )
-            }
-
-            if (idx != entries.lastIndex)
-                Divider()
+        tabs.forEachIndexed { index, _->
+            Tab(
+                text = {
+                    Text(
+                        tabs[index],
+                        color = if (pagerState.currentPage == index) Color.White else Color.LightGray
+                    )
+                },
+                selected = pagerState.currentPage == index,
+                onClick = {
+                    scope.launch {
+                        pagerState.animateScrollToPage(index)
+                    }
+                }
+            )
         }
     }
 }
+
+@RequiresApi(Build.VERSION_CODES.O)
+@ExperimentalPagerApi
+@Composable
+fun TabsContent(
+    pagerState: PagerState,
+    size: Int,
+    allConditionLogs: List<ConditionLog>,
+    result: List<LifeQualityTestResultLog>
+) {
+    val foodTriggerFrequency = foodTriggerFrequency(allConditionLogs = allConditionLogs);
+    val foodTriggerCategories = foodTriggerCategories
+    val foodData = triggersData(foodTriggerFrequency, foodTriggerCategories)
+
+    val weatherTriggerFrequency = weatherTriggerFrequency(allConditionLogs = allConditionLogs)
+    val weatherTriggerCategories = weatherTriggerCategories
+    val weatherData = triggersData(weatherTriggerFrequency, weatherTriggerCategories)
+
+    val mentalTriggerFrequency =  mentalHealthTriggerFrequency(allConditionLogs = allConditionLogs)
+    val mentalTriggerCategories = mentalHealthTriggerCategories
+    val mentalHealthData = triggersData(mentalTriggerFrequency, mentalTriggerCategories)
+
+    val otherTriggerFrequency =  otherTriggerFrequency(allConditionLogs = allConditionLogs)
+    val otherTriggerCategories = otherTriggerCategories
+    val otherData = triggersData(otherTriggerFrequency, otherTriggerCategories)
+
+    val data = getLineData(result)
+
+    HorizontalPager(
+        state = pagerState,
+        count = size
+    ) { page ->
+        when(page) {
+            0 -> TabScreen(foodData)
+            1 -> TabScreen(weatherData)
+            2 -> TabScreen(mentalHealthData)
+            3 -> TabScreen(otherData)
+            4 -> LinesSimpleScreen(data)
+        }
+    }
+}
+
