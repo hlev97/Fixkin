@@ -18,9 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.content.ChartContainer
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.content.trigger_chart.getLineData
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.data.buildValuePercentString
 import hu.ma.charts.legend.data.LegendEntry
 import hu.ma.charts.line.LineChart

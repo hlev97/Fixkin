@@ -2,19 +2,25 @@ package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.content
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,15 +33,19 @@ import java.time.format.DateTimeFormatter
 fun ListItem(
     modifier: Modifier,
     log: ConditionLog,
-    onClick: (conditionLogId: Int) -> Unit
+    onClick: (conditionLogId: Int) -> Unit,
+    dismissDirection: DismissDirection?
 ) {
+    val listItemElevation by animateDpAsState(
+        targetValue = if (dismissDirection != null) {
+            4.dp
+        } else 0.dp
+    )
     val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
     Surface(
         modifier = modifier
-            .fillMaxWidth(0.9f)
-            .clip(RoundedCornerShape(25.dp))
             .clickable { onClick(log.id) },
-        elevation = 12.dp
+        elevation = listItemElevation
     ) {
         Box(
             modifier = Modifier
@@ -57,10 +67,50 @@ fun ListItem(
             )
         }
     }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun ListItemBackground(
+    modifier: Modifier,
+    targetValue: DismissValue,
+    currentValue: DismissValue
+) {
+    val backgroundColor by animateColorAsState(
+        targetValue = when (targetValue) {
+            DismissValue.DismissedToEnd -> MaterialTheme.colors.error
+            else -> MaterialTheme.colors.background
+        },
+        animationSpec = tween()
+    )
+    val iconColor by animateColorAsState(
+        targetValue = when (targetValue) {
+            DismissValue.DismissedToEnd -> MaterialTheme.colors.onError
+            else -> MaterialTheme.colors.onSurface
+        },
+        animationSpec = tween()
+    )
+    val scale by animateFloatAsState(
+        targetValue = if (targetValue == DismissValue.DismissedToEnd) {
+            1f
+        } else 0.75f
+    )
     Box(
-        Modifier
-            .fillMaxWidth()
-            .height(15.dp))
+        modifier = modifier
+            .background(backgroundColor)
+            .padding(horizontal = 20.dp)
+    ) {
+        if (currentValue == DismissValue.Default) {
+            Icon(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .scale(scale),
+                imageVector = Icons.Default.Delete,
+                tint = iconColor,
+                contentDescription = "Delete Log"
+            )
+        }
+    }
 }
 
 @Composable

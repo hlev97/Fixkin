@@ -1,19 +1,15 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.content.trigger_chart
+package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.data
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Text
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
-import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.ma.charts.legend.data.LegendPosition
 import hu.ma.charts.line.data.LineChartData
 import hu.ma.charts.pie.data.PieChartData
 import hu.ma.charts.pie.data.PieChartEntry
-import java.time.format.DateTimeFormatter
 
 val SimpleColors = listOf(
     Color.Black,

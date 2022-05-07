@@ -35,7 +35,8 @@ import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.bottom_navig
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalPagerApi::class)
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
 @SuppressLint("StateFlowValueCalledInComposition")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -121,7 +122,7 @@ fun MainScreen(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(bottom = 80.dp)
+                        .padding(bottom = 20.dp)
                         .align(Alignment.CenterHorizontally),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {

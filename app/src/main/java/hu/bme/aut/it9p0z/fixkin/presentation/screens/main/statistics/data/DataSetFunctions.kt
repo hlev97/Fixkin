@@ -152,6 +152,14 @@ fun otherTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableList<Flo
     return otherTriggerCounters
 }
 
+fun nullFloatList(list: MutableList<Float>): Boolean {
+    var nullFloatList = true
+    for (num in list) {
+        if (num != 0f) nullFloatList = false
+    }
+    return nullFloatList
+}
+
 @Composable
 internal fun buildValuePercentString(item: LegendEntry) = buildAnnotatedString {
     item.value?.let { value ->

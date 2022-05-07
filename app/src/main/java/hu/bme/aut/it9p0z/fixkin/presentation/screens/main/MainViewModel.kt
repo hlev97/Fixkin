@@ -31,6 +31,12 @@ class MainViewModel @Inject constructor(
 
     private fun getAllLifeQualityTestResultLog(): Flow<List<LifeQualityTestResultLog>> = repository.getAllTestResult()
 
+    fun deleteConditionLog(log: ConditionLog) {
+        viewModelScope.launch {
+            repository.deleteConditionLog(log)
+        }
+    }
+
     private val _allConditionLogs = MutableStateFlow<List<ConditionLog>>(listOf())
     val allConditionLogs = _allConditionLogs
 
