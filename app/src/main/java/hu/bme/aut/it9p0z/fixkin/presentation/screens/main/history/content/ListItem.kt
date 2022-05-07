@@ -69,7 +69,7 @@ fun ListItem(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @Composable
 fun ListItemBackground(
     modifier: Modifier,

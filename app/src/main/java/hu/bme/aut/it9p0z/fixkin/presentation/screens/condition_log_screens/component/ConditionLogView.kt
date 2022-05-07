@@ -18,6 +18,8 @@ import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log.util.TriggerGroup
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.feelings
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.sliderPositionToFeeling
+import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorSelected
+import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorUnselected
 
 
 @ExperimentalMaterialApi
@@ -91,11 +93,11 @@ fun TriggerGroupView(
                     enabled = enabled,
                     colors = if (selected)
                         ChipDefaults.chipColors(
-                            backgroundColor = Color.Black,
-                            contentColor = Color.White)
+                            backgroundColor = MaterialTheme.colors.chipColorSelected,
+                            contentColor = MaterialTheme.colors.contentColorFor( MaterialTheme.colors.chipColorSelected))
                     else ChipDefaults.chipColors(
-                        backgroundColor = Color.LightGray,
-                        contentColor = contentColorFor(backgroundColor = Color.LightGray)
+                        backgroundColor = MaterialTheme.colors.chipColorUnselected,
+                        contentColor = contentColorFor(MaterialTheme.colors.chipColorUnselected)
                     ),
                     onClick = {
                         trigger.selected = !trigger.selected

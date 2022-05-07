@@ -14,7 +14,7 @@ import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.HistoryScreen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.bottom_navigation.BottomNavigationItem
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.statistics.StatisticsScreen
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

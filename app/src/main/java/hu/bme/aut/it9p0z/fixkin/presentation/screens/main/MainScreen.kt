@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.core.Transition
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +17,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
@@ -59,6 +63,12 @@ fun MainScreen(
         bottomBarHeight.roundToPx().toFloat()
     }
     val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
+
+    val transition: Transition<Boolean> = updateTransition(targetState = openMenu.value, label = "Menu visibility changed")
+    val rotation: Float by transition
+        .animateFloat(label = "") { opened ->
+            if (opened) 315f else 0f
+        }
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
@@ -108,7 +118,11 @@ fun MainScreen(
                     }
                 }
             }) {
-                Icon(imageVector = if (openMenu.value) Icons.Filled.Close else Icons.Filled.Add, contentDescription = "")
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = "",
+                    modifier = Modifier.rotate(rotation)
+                )
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
@@ -116,13 +130,11 @@ fun MainScreen(
     ) {
         ModalBottomSheetLayout(
             sheetShape = RoundedCornerShape(15.dp),
-            sheetBackgroundColor = Color.White,
             sheetState = sheetState,
             sheetContent = {
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(bottom = 20.dp)
+                        .padding(bottom = 75.dp)
                         .align(Alignment.CenterHorizontally),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {

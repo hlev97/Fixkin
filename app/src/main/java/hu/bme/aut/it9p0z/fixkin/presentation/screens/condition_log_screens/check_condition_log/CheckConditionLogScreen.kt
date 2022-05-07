@@ -33,9 +33,6 @@ fun CheckConditionLogScreen(
     }
 
     val selectedConditionLog = checkConditionLogViewModel.selectedConditionLog.value
-    if (selectedConditionLog != null) {
-        Log.i("${selectedConditionLog.date}", "null check")
-    }
 
     var editable by remember { mutableStateOf(false) }
     val openDialog = remember { mutableStateOf(false)  }

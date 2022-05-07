@@ -138,7 +138,7 @@ fun LifeQualityTestScreen(
 
 private fun countScore(): Int {
     var score = 0
-    questions.forEachIndexed { i, testQuestion ->
+    questions.forEachIndexed { i, _ ->
         score += questions[i].answer?.point ?: 0
     }
     return score

@@ -25,7 +25,6 @@ import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ListContent(
-    modifier: Modifier = Modifier,
     allConditionLogs: List<ConditionLog>,
     onClick: (id: Int) -> Unit,
     onDelete: (log: ConditionLog) -> Unit

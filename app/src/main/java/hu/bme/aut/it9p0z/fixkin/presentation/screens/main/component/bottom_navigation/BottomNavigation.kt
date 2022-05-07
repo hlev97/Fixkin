@@ -10,6 +10,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import hu.bme.aut.it9p0z.fixkin.ui.theme.bottomNavBarActionSelected
+import hu.bme.aut.it9p0z.fixkin.ui.theme.bottomNavBarActionUnselected
 
 @Composable
 fun BottomNav(
@@ -21,6 +23,7 @@ fun BottomNav(
         BottomNavigationItem.History,
         BottomNavigationItem.Statistics
     )
+
     BottomAppBar(
         modifier = modifier,
         cutoutShape = CircleShape
@@ -34,19 +37,21 @@ fun BottomNav(
                     label = {
                         Text(text = item.title, fontSize = 9.sp)
                     },
-                    selectedContentColor = Color.Black,
-                    unselectedContentColor = Color.Black.copy(0.4f),
+                    selectedContentColor = MaterialTheme.colors.bottomNavBarActionSelected,
+                    unselectedContentColor = MaterialTheme.colors.bottomNavBarActionUnselected,
                     alwaysShowLabel = true,
                     onClick = {
-                        onClick()
-                        navController.navigate(item.screen_route) {
-                            navController.graph.startDestinationRoute?.let { screen_route ->
-                                popUpTo(screen_route) {
-                                    saveState = true
+                        if (item.screen_route != currentRoute) {
+                            onClick()
+                            navController.navigate(item.screen_route) {
+                                navController.graph.startDestinationRoute?.let { screen_route ->
+                                    popUpTo(screen_route) {
+                                        saveState = true
+                                    }
                                 }
+                                launchSingleTop = true
+                                restoreState = true
                             }
-                            launchSingleTop = true
-                            restoreState = true
                         }
                     },
                     icon = {

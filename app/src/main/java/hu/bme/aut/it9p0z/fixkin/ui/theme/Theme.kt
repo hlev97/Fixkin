@@ -6,38 +6,39 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-private val DarkColorPalette = darkColors(
-    primary = Independece900,
-    primaryVariant = GoldFusion900,
-    onPrimary = OnIndependece700,
-    secondary = Independece700,
-    secondaryVariant = Independece900,
-    onSecondary = OnIndependece700,
-    surface = GoldFusion700,
-    onSurface = OnGoldFusion700,
-    background = BackgroundDark,
-    onBackground = BackgroundLight
-)
+private val LightThemeColors = lightColors(
 
-private val LightColorPalette = lightColors(
-    primary = GoldFusion200,
-    primaryVariant = GoldFusion500,
-    onPrimary = OnGoldFusion200,
-    secondary = Independece200,
-    secondaryVariant = Independece500,
-    onSecondary = OnIndependence200,
-    surface = GoldFusion200,
-    onSurface = OnGoldFusion200,
-    background = BackgroundLight,
-    onBackground = BackgroundDark
+    primary = md_theme_light_primary,
+    onPrimary = md_theme_light_onPrimary,
+    secondary = md_theme_light_secondary,
+    onSecondary = md_theme_light_onSecondary,
+    error = md_theme_light_error,
+    onError = md_theme_light_onError,
+    background = md_theme_light_background,
+    onBackground = md_theme_light_onBackground,
+    surface = md_theme_light_surface,
+    onSurface = md_theme_light_onSurface,
+)
+private val DarkThemeColors = darkColors(
+
+    primary = md_theme_dark_primary,
+    onPrimary = md_theme_dark_onPrimary,
+    secondary = md_theme_dark_secondary,
+    onSecondary = md_theme_dark_onSecondary,
+    error = md_theme_dark_error,
+    onError = md_theme_dark_onError,
+    background = md_theme_dark_background,
+    onBackground = md_theme_dark_onBackground,
+    surface = md_theme_dark_surface,
+    onSurface = md_theme_dark_onSurface,
 )
 
 @Composable
 fun FixkinTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
-        DarkColorPalette
+        DarkThemeColors
     } else {
-        LightColorPalette
+        LightThemeColors
     }
 
     MaterialTheme(

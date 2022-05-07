@@ -25,7 +25,7 @@ object DatabaseModule {
             context,
             LogDatabase::class.java,
             "log_databse"
-        ).build()
+        ).createFromAsset("/database/log_database.db").build()
     }
 
     @Provides

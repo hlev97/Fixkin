@@ -10,13 +10,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.flowlayout.FlowRow
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
@@ -24,6 +22,9 @@ import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.TriggerGroup
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.feelings
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.triggerGroups
+import hu.bme.aut.it9p0z.fixkin.ui.theme.bottomNavBarActionUnselected
+import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorSelected
+import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorUnselected
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
@@ -105,11 +106,12 @@ fun AddConditionLogScreen(
                                 ),
                             colors = if (selected)
                                         ChipDefaults.chipColors(
-                                            backgroundColor = Color.Black,
-                                            contentColor = Color.White)
+                                            backgroundColor = MaterialTheme.colors.chipColorSelected,
+                                            contentColor = MaterialTheme.colors.contentColorFor( MaterialTheme.colors.chipColorSelected))
                                     else ChipDefaults.chipColors(
-                                backgroundColor = Color.LightGray,
-                                contentColor = contentColorFor(backgroundColor = Color.LightGray)),
+                                            backgroundColor = MaterialTheme.colors.chipColorUnselected,
+                                            contentColor = contentColorFor(MaterialTheme.colors.chipColorUnselected)
+                            ),
                             onClick = {
                                 trigger.selected = !trigger.selected
                                 selected = trigger.selected

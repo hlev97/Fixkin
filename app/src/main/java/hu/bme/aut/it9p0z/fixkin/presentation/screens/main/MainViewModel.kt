@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.bme.aut.it9p0z.fixkin.data.repository.Repository
+import hu.bme.aut.it9p0z.fixkin.util.conditionMockLogs
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
@@ -26,6 +27,11 @@ class MainViewModel @Inject constructor(
     fun readDailyConditionLogCounterValue(): Flow<Int> = repository.readDailyConditionLogCounterValue()
 
     suspend fun initDailyConditionLogCounter() { repository.initDailyConditionLogCounter() }
+
+    suspend fun saveAll(logs: List<ConditionLog>) {
+        for (log in logs)
+             repository.insertConditionLog(log)
+    }
 
     private fun getAllConditionLog(): Flow<List<ConditionLog>> = repository.getAllConditionLog()
 
@@ -54,5 +60,6 @@ class MainViewModel @Inject constructor(
                 _allLifeQualityTestResultLogs.value = logs
             }
         }
+
     }
 }

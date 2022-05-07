@@ -18,7 +18,7 @@ import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.MainScreen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.welcome.WelcomeScreen
 
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalPagerApi
 @ExperimentalAnimationApi

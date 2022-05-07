@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun EmptyContent(
@@ -17,7 +18,7 @@ fun EmptyContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (trigger) Text(text = "You don't have enough logs about this trigger group.")
-        else Text(text = "You haven't filled out enough DLQI surveys.")
+        if (trigger) Text(text = "You don't have enough logs about this trigger group.", textAlign = TextAlign.Center)
+        else Text(text = "You haven't filled out enough DLQI surveys.", textAlign = TextAlign.Center)
     }
 }
