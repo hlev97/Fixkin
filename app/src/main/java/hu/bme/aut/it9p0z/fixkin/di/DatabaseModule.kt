@@ -24,8 +24,8 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context,
             LogDatabase::class.java,
-            "log_databse"
-        ).createFromAsset("/database/log_database.db").build()
+            "log_database"
+        ).createFromAsset("database/log_database.db").build()
     }
 
     @Provides

@@ -28,11 +28,6 @@ class MainViewModel @Inject constructor(
 
     suspend fun initDailyConditionLogCounter() { repository.initDailyConditionLogCounter() }
 
-    suspend fun saveAll(logs: List<ConditionLog>) {
-        for (log in logs)
-             repository.insertConditionLog(log)
-    }
-
     private fun getAllConditionLog(): Flow<List<ConditionLog>> = repository.getAllConditionLog()
 
     private fun getAllLifeQualityTestResultLog(): Flow<List<LifeQualityTestResultLog>> = repository.getAllTestResult()

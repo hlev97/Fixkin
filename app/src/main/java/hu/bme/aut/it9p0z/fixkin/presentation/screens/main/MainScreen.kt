@@ -50,7 +50,6 @@ fun MainScreen(
 ) {
     val allConditionLogs = mainViewModel.allConditionLogs.value
     val allLifeQualityTestResultLogs = mainViewModel.allLifeQualityTestResultLogs.value
-    Log.i("$allLifeQualityTestResultLogs.size", "size")
     val mainNavController = rememberNavController()
 
     val openMenu = remember { mutableStateOf(false) }

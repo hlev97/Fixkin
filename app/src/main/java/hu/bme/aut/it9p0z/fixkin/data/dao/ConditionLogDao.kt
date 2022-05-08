@@ -15,9 +15,6 @@ interface ConditionLogDao {
     @Query("SELECT * FROM (SELECT * FROM condition_logs ORDER BY id DESC) LIMIT 1")
     fun getLastLog(): Flow<ConditionLog>
 
-    @Query("SELECT * FROM (SELECT * FROM condition_logs ORDER BY id DESC) LIMIT 37")
-    fun getLast37Logs(): Flow<ConditionLog>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLog(log: ConditionLog)
 

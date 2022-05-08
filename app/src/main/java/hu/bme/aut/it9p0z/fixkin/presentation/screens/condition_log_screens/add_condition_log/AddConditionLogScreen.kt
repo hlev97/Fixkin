@@ -5,9 +5,12 @@ import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -39,7 +42,6 @@ fun AddConditionLogScreen(
         navController.navigate(Screen.Main.screen_route)
     }
 
-    val scope = rememberCoroutineScope()
     Scaffold(
         modifier = Modifier.fillMaxWidth(),
         floatingActionButtonPosition = FabPosition.End,
@@ -48,77 +50,103 @@ fun AddConditionLogScreen(
                 shape = CircleShape,
                 onClick = {
                     val log = getConditionLogState(addConditionLogViewModel.feelingValue)
-                    scope.launch {
-                        addConditionLogViewModel.insertConditionLog(log = log)
-                    }
+                    addConditionLogViewModel.insertConditionLog(log = log)
                     navController.navigate(Screen.Main.screen_route)
                 }
             ) {
-                Text(text = "C")
+                Text(text = "Save")
             }
+        },
+        topBar = {
+            TopAppBar(
+                title = {Text(text = "Create Condition Log")},
+                navigationIcon = {
+                    IconButton(
+                        onClick = { navController.navigate(Screen.Main.screen_route) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "back"
+                        )
+                    }
+                }
+            )
         }
     ) {
-        Column(modifier = Modifier
+        LazyColumn(modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
         ) {
-
-            var sliderPosition by remember { mutableStateOf(0f) }
-            Text(text = "Feeling")
-            Slider(
-                value = sliderPosition,
-                onValueChange = { sliderPosition = it },
-                valueRange = 0f..4f,
-                onValueChangeFinished = {
-                    addConditionLogViewModel.feelingValue = sliderPositionToFeeling(sliderPosition)
-                },
-                steps = 3,
-                colors = SliderDefaults.colors(
-                    thumbColor = MaterialTheme.colors.secondary,
-                    activeTrackColor = MaterialTheme.colors.secondary
+            item {
+                var sliderPosition by remember { mutableStateOf(0f) }
+                Text(text = "Feeling")
+                Slider(
+                    value = sliderPosition,
+                    onValueChange = { sliderPosition = it },
+                    valueRange = 0f..4f,
+                    onValueChangeFinished = {
+                        addConditionLogViewModel.feelingValue =
+                            sliderPositionToFeeling(sliderPosition)
+                    },
+                    steps = 3,
+                    colors = SliderDefaults.colors(
+                        thumbColor = MaterialTheme.colors.secondary,
+                        activeTrackColor = MaterialTheme.colors.secondary
+                    )
                 )
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, bottom = 15.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                feelings.forEach { feeling ->
-                    Icon(painter = painterResource(id = feeling.iconId), contentDescription = feeling.title)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, bottom = 15.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    feelings.forEach { feeling ->
+                        Icon(
+                            painter = painterResource(id = feeling.iconId),
+                            contentDescription = feeling.title
+                        )
+                    }
                 }
-            }
 
-            triggerGroups.forEach { triggerGroup ->
-                Text(text = triggerGroup.title)
-                FlowRow(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, bottom = 15.dp)) {
-                    triggerGroup.triggers.forEach { trigger ->
-                        var selected by remember { mutableStateOf(false) }
-                        Chip(
-                            modifier = Modifier
-                                .padding(horizontal = 8.dp)
-                                .selectable(
-                                    selected = selected,
-                                    onClick = { },
-                                    role = Role.Checkbox
+                triggerGroups.forEach { triggerGroup ->
+                    Text(text = triggerGroup.title)
+                    FlowRow(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, bottom = 15.dp)
+                    ) {
+                        triggerGroup.triggers.forEach { trigger ->
+                            var selected by remember { mutableStateOf(false) }
+                            Chip(
+                                modifier = Modifier
+                                    .padding(horizontal = 8.dp)
+                                    .selectable(
+                                        selected = selected,
+                                        onClick = { },
+                                        role = Role.Checkbox
+                                    ),
+                                colors = if (selected)
+                                    ChipDefaults.chipColors(
+                                        backgroundColor = MaterialTheme.colors.chipColorSelected,
+                                        contentColor = MaterialTheme.colors.contentColorFor(
+                                            MaterialTheme.colors.chipColorSelected
+                                        )
+                                    )
+                                else ChipDefaults.chipColors(
+                                    backgroundColor = MaterialTheme.colors.chipColorUnselected,
+                                    contentColor = contentColorFor(MaterialTheme.colors.chipColorUnselected)
                                 ),
-                            colors = if (selected)
-                                        ChipDefaults.chipColors(
-                                            backgroundColor = MaterialTheme.colors.chipColorSelected,
-                                            contentColor = MaterialTheme.colors.contentColorFor( MaterialTheme.colors.chipColorSelected))
-                                    else ChipDefaults.chipColors(
-                                            backgroundColor = MaterialTheme.colors.chipColorUnselected,
-                                            contentColor = contentColorFor(MaterialTheme.colors.chipColorUnselected)
-                            ),
-                            onClick = {
-                                trigger.selected = !trigger.selected
-                                selected = trigger.selected
-                                Log.i("${trigger.title} is selected: ${trigger.selected}", "selected check")
+                                onClick = {
+                                    trigger.selected = !trigger.selected
+                                    selected = trigger.selected
+                                    Log.i(
+                                        "${trigger.title} is selected: ${trigger.selected}",
+                                        "selected check"
+                                    )
+                                }
+                            ) {
+                                Text(trigger.title)
                             }
-                        ) {
-                            Text(trigger.title)
                         }
                     }
                 }

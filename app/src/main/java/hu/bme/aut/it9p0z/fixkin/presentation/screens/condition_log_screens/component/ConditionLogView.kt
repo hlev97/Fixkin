@@ -94,7 +94,7 @@ fun TriggerGroupView(
                     colors = if (selected)
                         ChipDefaults.chipColors(
                             backgroundColor = MaterialTheme.colors.chipColorSelected,
-                            contentColor = MaterialTheme.colors.contentColorFor( MaterialTheme.colors.chipColorSelected))
+                            contentColor = if(enabled) MaterialTheme.colors.contentColorFor( MaterialTheme.colors.chipColorSelected) else Color.LightGray)
                     else ChipDefaults.chipColors(
                         backgroundColor = MaterialTheme.colors.chipColorUnselected,
                         contentColor = contentColorFor(MaterialTheme.colors.chipColorUnselected)
