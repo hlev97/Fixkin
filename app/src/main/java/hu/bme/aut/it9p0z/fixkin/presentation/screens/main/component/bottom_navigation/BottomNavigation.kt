@@ -1,5 +1,7 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.bottom_navigation
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -7,9 +9,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import hu.bme.aut.it9p0z.fixkin.ui.theme.FixkinTheme
 import hu.bme.aut.it9p0z.fixkin.ui.theme.bottomNavBarActionSelected
 import hu.bme.aut.it9p0z.fixkin.ui.theme.bottomNavBarActionUnselected
 
@@ -60,5 +65,23 @@ fun BottomNav(
                 )
             }
         }
+    }
+}
+
+@Composable
+@Preview
+fun BottomNavPreview() {
+    val navController = rememberNavController()
+    FixkinTheme {
+        BottomNav(modifier = Modifier, navController = navController, onClick = {})
+    }
+}
+
+@Composable
+@Preview(uiMode = UI_MODE_NIGHT_YES)
+fun BottomNavDarkPreview() {
+    val navController = rememberNavController()
+    FixkinTheme {
+        BottomNav(modifier = Modifier, navController = navController, onClick = {})
     }
 }

@@ -1,24 +1,28 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
+
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.component.ConditionLogView
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.ConditionLogView
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.getConditionLogState
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.*
+import hu.bme.aut.it9p0z.fixkin.ui.theme.FixkinTheme
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @RequiresApi(Build.VERSION_CODES.O)
@@ -29,33 +33,40 @@ fun CheckConditionLogScreen(
     checkConditionLogViewModel: CheckConditionLogViewModel = hiltViewModel()
 ) {
     BackHandler {
+        navController.popBackStack()
         navController.navigate(Screen.Main.screen_route)
     }
 
     val selectedConditionLog = checkConditionLogViewModel.selectedConditionLog.value
 
     var editable by remember { mutableStateOf(false) }
-    val openDialog = remember { mutableStateOf(false)  }
+    val openDialog = remember { mutableStateOf(false) }
 
     if (selectedConditionLog != null) {
         val triggerGroups = fetchTriggerGroups(selectedConditionLog)
         Scaffold(
             modifier = Modifier
                 .fillMaxWidth(),
-            topBar = { CheckConditionBar(
-                selectedConditionLog = selectedConditionLog,
-                navigateBack = { navController.navigate(Screen.Main.screen_route) },
-                setEditable = { editable = !editable },
-                onDelete = {
-                    openDialog.value = true
-                },
-                enabled = editable
-            )},
+            topBar = {
+                CheckConditionBar(
+                    selectedConditionLog = selectedConditionLog,
+                    navigateBack = {
+                        navController.popBackStack()
+                        navController.navigate(Screen.Main.screen_route)
+                   },
+                    setEditable = { editable = !editable },
+                    onDelete = {
+                        openDialog.value = true
+                    },
+                    enabled = editable
+                )
+            },
             floatingActionButtonPosition = FabPosition.End,
             floatingActionButton = {
-                FloatingActionButton(
-                    onClick = {
-                        if (editable) {
+                if (editable) {
+                    FloatingActionButton(
+                        modifier = Modifier,
+                        onClick = {
                             val log = getConditionLogState(
                                 selectedConditionLog.id,
                                 checkConditionLogViewModel.feelingValue,
@@ -64,26 +75,34 @@ fun CheckConditionLogScreen(
                             checkConditionLogViewModel.updateConditionLog(log)
                             navController.navigate(Screen.Main.screen_route)
                         }
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_save_24),
+                            contentDescription = "save"
+                        )
                     }
-                ) {
-                    Icon(imageVector = Icons.Default.Edit, contentDescription = "")
                 }
             }
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                LazyColumn(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
                 ) {
                     item {
+                        var sliderPosition by remember { mutableStateOf(feelingToFloat(selectedConditionLog.feeling)) }
                         ConditionLogView(
                             enabled = editable,
-                            position = feelingToFloat(selectedConditionLog.feeling),
+                            position = sliderPosition,
                             triggerGroups = triggerGroups,
-                            onClick = {
-
+                            onValueChanged = { pos ->
+                                sliderPosition = pos
                             },
-                            checkConditionLogViewModel = checkConditionLogViewModel
+                            onValueChangedFinished = {
+                                checkConditionLogViewModel.sliderPosition = sliderPosition
+                                checkConditionLogViewModel.feelingValue = sliderPositionToFeeling(sliderPosition)
+                            }
                         )
                     }
                 }

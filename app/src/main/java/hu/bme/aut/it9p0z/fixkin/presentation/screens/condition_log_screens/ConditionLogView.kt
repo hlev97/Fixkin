@@ -1,10 +1,10 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.component
+package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens
 
-import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -12,12 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowRow
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log.CheckConditionLogViewModel
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log.util.TriggerGroup
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.TriggerGroup
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.feelings
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.sliderPositionToFeeling
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.triggerGroups
+import hu.bme.aut.it9p0z.fixkin.ui.theme.FixkinTheme
 import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorSelected
 import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorUnselected
 
@@ -28,19 +29,19 @@ fun ConditionLogView(
     enabled: Boolean,
     position: Float,
     triggerGroups: List<TriggerGroup>?,
-    onClick: () -> Unit,
-    checkConditionLogViewModel: CheckConditionLogViewModel
+    onValueChanged: (pod: Float) -> Unit,
+    onValueChangedFinished: () -> Unit,
 ) {
     if (triggerGroups != null) {
-        var sliderPosition by remember { mutableStateOf(position) }
         Text(text = "Feeling")
         Slider(
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
+            value = position,
+            onValueChange = { pos ->
+                onValueChanged(pos)
+            },
             valueRange = 0f..4f,
             onValueChangeFinished = {
-                checkConditionLogViewModel.sliderPosition = sliderPosition
-                checkConditionLogViewModel.feelingValue = sliderPositionToFeeling(sliderPosition)
+                onValueChangedFinished()
             },
             steps = 3,
             colors = SliderDefaults.colors(
@@ -61,7 +62,6 @@ fun ConditionLogView(
         }
         TriggerGroupView(
             enabled = enabled,
-            onClick = { onClick() },
             triggerGroups = triggerGroups
         )
     }
@@ -71,7 +71,6 @@ fun ConditionLogView(
 @ExperimentalMaterialApi
 fun TriggerGroupView(
     enabled: Boolean,
-    onClick: () -> Unit,
     triggerGroups: List<TriggerGroup>?
 ) {
     triggerGroups?.forEach { triggerGroup ->
@@ -102,12 +101,45 @@ fun TriggerGroupView(
                     onClick = {
                         trigger.selected = !trigger.selected
                         selected = trigger.selected
-                        onClick()
                     }
                 ) {
                     Text(trigger.title)
                 }
             }
+        }
+    }
+}
+
+@ExperimentalMaterialApi
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_NO)
+@Composable
+fun ConditionLogViewLightPreview() {
+    FixkinTheme(darkTheme = false) {
+        Column(Modifier.fillMaxWidth()) {
+            ConditionLogView(
+                enabled = true,
+                position = 2f,
+                triggerGroups = triggerGroups,
+                onValueChanged = {},
+                onValueChangedFinished = {}
+            )
+        }
+    }
+}
+
+@ExperimentalMaterialApi
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES )
+@Composable
+fun ConditionLogViewDarkModePreview() {
+    FixkinTheme {
+        Column(Modifier.fillMaxWidth().background(color = MaterialTheme.colors.background)) {
+            ConditionLogView(
+                enabled = true,
+                position = 2f,
+                triggerGroups = triggerGroups,
+                onValueChanged = {},
+                onValueChangedFinished = {}
+            )
         }
     }
 }

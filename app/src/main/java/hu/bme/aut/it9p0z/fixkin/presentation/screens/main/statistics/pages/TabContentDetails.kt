@@ -30,13 +30,7 @@ import hu.ma.charts.pie.data.PieChartData
 @Composable
 fun TabScreen(data: PieChartData) {
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        contentPadding = PaddingValues(
-            top = 24.dp,
-            bottom = 24.dp,
-        ),
+        modifier = Modifier.fillMaxSize().padding(vertical = 24.dp)
     ) {
         item {
             ChartContainer(
@@ -44,7 +38,7 @@ fun TabScreen(data: PieChartData) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
                     .border(
-                        BorderStroke(1.dp, Color.LightGray),
+                        border = BorderStroke(2.dp, MaterialTheme.colors.onSurface),
                         shape = RoundedCornerShape(16.dp)
                     )
                     .padding(16.dp)
@@ -67,7 +61,7 @@ private fun RowScope.CustomVerticalLegend(entries: List<LegendEntry>) {
     Column(
         modifier = Modifier.weight(1f),
     ) {
-        entries.forEachIndexed { idx, item ->
+        entries.forEachIndexed { index, item ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(vertical = 14.dp)
@@ -77,22 +71,18 @@ private fun RowScope.CustomVerticalLegend(entries: List<LegendEntry>) {
                         .requiredSize(item.shape.size)
                         .background(item.shape.color, item.shape.shape)
                 )
-
                 Spacer(modifier = Modifier.requiredSize(8.dp))
-
                 Text(
                     text = item.text,
                     style = MaterialTheme.typography.caption
                 )
                 Spacer(modifier = Modifier.weight(1f))
-
                 Text(
                     text = buildValuePercentString(item),
                     style = MaterialTheme.typography.caption,
                 )
             }
-
-            if (idx != entries.lastIndex)
+            if (index != entries.lastIndex)
                 Divider()
         }
     }
@@ -105,12 +95,8 @@ fun LinesSimpleScreen(
 ) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        contentPadding = PaddingValues(
-            top = 24.dp,
-            bottom = 24.dp,
-        ),
+            .fillMaxSize()
+            .padding(vertical = 24.dp)
     ) {
         item {
             ChartContainer(
@@ -118,12 +104,12 @@ fun LinesSimpleScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
                     .border(
-                        BorderStroke(1.dp, Color.LightGray),
+                        border = BorderStroke(2.dp, MaterialTheme.colors.onSurface),
                         shape = RoundedCornerShape(16.dp)
                     )
                     .padding(16.dp)
                     .animateContentSize(),
-                title = "DLQI test results "
+                title = "DLQI test results"
             ) {
                 LineChart(
                     chartHeight = 400.dp,

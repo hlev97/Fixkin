@@ -11,17 +11,17 @@ import hu.ma.charts.line.data.LineChartData
 import hu.ma.charts.pie.data.PieChartData
 import hu.ma.charts.pie.data.PieChartEntry
 
-val SimpleColors = listOf(
-    Color.Black,
-    Color.Blue,
-    Color.Yellow,
-    Color.Red,
-    Color.LightGray,
-    Color.Magenta,
-    Color.Cyan,
-    Color.Green,
-    Color.Gray,
-    Color.DarkGray
+val SampleColors = listOf(
+    Color(0xFF380532),
+    Color(0xFF3C2A3C),
+    Color(0xFF5A7E87),
+    Color(0xFF93A7B4),
+    Color(0xFF4B8155),
+    Color(0xFF4B5639),
+    Color(0xFFB4AD2D),
+    Color(0xFF557246),
+    Color(0xFF195361),
+    Color(0xFF580E20)
 )
 
 fun triggersData(
@@ -35,7 +35,7 @@ fun triggersData(
                 label = AnnotatedString(triggerCategories[idx])
             )
         },
-        colors = SimpleColors,
+        colors = SampleColors,
         legendPosition = LegendPosition.Bottom,
         legendShape = CircleShape,
     )
@@ -68,8 +68,8 @@ fun getLineData(
         LineChartData.SeriesData(
             "",
             points = seriesLifeQuality(result),
-            Color.Red
+            Color(0xFF580E20)
         )
     ),
-    xLabels = xLabels(result)
+    xLabels = xLabels(result),
 )

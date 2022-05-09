@@ -1,5 +1,6 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.content
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateColorAsState
@@ -26,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
+import hu.bme.aut.it9p0z.fixkin.ui.theme.FixkinTheme
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -116,25 +118,54 @@ fun ListItemBackground(
 @Composable
 @Preview(showBackground = true)
 fun ListItemPreview() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(25.dp)
-            .clip(RoundedCornerShape(25.dp))
-    ) {
-        Text(
+    FixkinTheme {
+        Box(
             modifier = Modifier
-                .align(Alignment.CenterStart)
-                .padding(start = 15.dp),
-            text = "2012. 08. 13"
-        )
-        Icon(
+                .fillMaxWidth()
+                .padding(25.dp)
+                .clip(RoundedCornerShape(25.dp))
+        ) {
+            Text(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 15.dp),
+                text = "2012. 08. 13"
+            )
+            Icon(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 15.dp),
+                painter = painterResource(id = R.drawable.ic_sentiment_very_satisfied_black_24dp),
+                contentDescription = "feeling"
+            )
+        }
+    }
+}
+
+@Composable
+@Preview(uiMode = UI_MODE_NIGHT_YES)
+fun ListItemDarkPreview() {
+    FixkinTheme {
+        Box(
             modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .padding(end = 15.dp),
-            painter = painterResource(id = R.drawable.ic_sentiment_very_satisfied_black_24dp),
-            contentDescription = "feeling"
-        )
+                .fillMaxWidth()
+                .padding(25.dp)
+                .clip(RoundedCornerShape(25.dp))
+        ) {
+            Text(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 15.dp),
+                text = "2012. 08. 13"
+            )
+            Icon(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 15.dp),
+                painter = painterResource(id = R.drawable.ic_sentiment_very_satisfied_black_24dp),
+                contentDescription = "feeling"
+            )
+        }
     }
 }
 

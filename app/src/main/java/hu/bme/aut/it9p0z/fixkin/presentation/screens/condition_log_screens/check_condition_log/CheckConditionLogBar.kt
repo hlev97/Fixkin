@@ -1,11 +1,8 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -13,11 +10,9 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
+import hu.bme.aut.it9p0z.fixkin.ui.theme.FixkinTheme
 import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -75,12 +70,28 @@ fun CheckConditionBar(
 @Preview(showBackground = true)
 @Composable
 fun BarPreview() {
+    FixkinTheme() {
+        CheckConditionBar(
+            selectedConditionLog = null,
+            navigateBack = {},
+            setEditable = {},
+            onDelete = {},
+            enabled = true
+        )
+    }
+}
 
-    CheckConditionBar(
-        selectedConditionLog = null,
-        navigateBack = {},
-        setEditable = {},
-        onDelete = {},
-        enabled = true
-    )
+@RequiresApi(Build.VERSION_CODES.O)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun BarDarkPreview() {
+    FixkinTheme() {
+        CheckConditionBar(
+            selectedConditionLog = null,
+            navigateBack = {},
+            setEditable = {},
+            onDelete = {},
+            enabled = true
+        )
+    }
 }

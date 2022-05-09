@@ -1,8 +1,7 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.main
 
-import android.annotation.SuppressLint
 import android.os.Build
-import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
@@ -13,13 +12,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -30,8 +27,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
 import hu.bme.aut.it9p0z.fixkin.navigation.MainScreenNavigationGraph
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.MainTopAppBar
@@ -41,15 +36,15 @@ import kotlin.math.roundToInt
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
-@SuppressLint("StateFlowValueCalledInComposition")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
     navController: NavHostController,
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
-    val allConditionLogs = mainViewModel.allConditionLogs.value
-    val allLifeQualityTestResultLogs = mainViewModel.allLifeQualityTestResultLogs.value
+
+    val allConditionLogs by mainViewModel.allConditionLogs.collectAsState()
+    val allLifeQualityTestResultLogs by mainViewModel.allLifeQualityTestResultLogs.collectAsState()
     val mainNavController = rememberNavController()
 
     val openMenu = remember { mutableStateOf(false) }
@@ -84,8 +79,14 @@ fun MainScreen(
         }
     }
 
+    BackHandler {
+
+    }
+
     Scaffold(
-        modifier = Modifier.fillMaxWidth().nestedScroll(nestedScrollConnection),
+        modifier = Modifier
+            .fillMaxWidth()
+            .nestedScroll(nestedScrollConnection),
         topBar = {
             MainTopAppBar(
                 modifier = Modifier
@@ -98,7 +99,8 @@ fun MainScreen(
                     .offset {
                         IntOffset(
                             x = 0,
-                            y = -bottomBarOffsetHeightPx.value.roundToInt())
+                            y = -bottomBarOffsetHeightPx.value.roundToInt()
+                        )
                     },
                 navController = mainNavController,
                 onClick = {

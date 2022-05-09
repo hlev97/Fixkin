@@ -58,6 +58,7 @@ dependencies {
     implementation "androidx.compose.compiler:compiler:$compose_version"
     implementation 'com.google.android.material:material:1.5.0'
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
@@ -86,12 +87,6 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     /**
-     * Compose Calendar by boguszpawlowski
-     * @url https://github.com/boguszpawlowski/ComposeCalendar/
-     */
-    implementation "io.github.boguszpawlowski.composecalendar:composecalendar:0.4.2"
-
-    /**
      * Compose Charts by Huma AS
      * @url https://github.com/humawork/compose-charts
      */
@@ -99,11 +94,10 @@ dependencies {
 
     /**
      * pager by Accompanist
-     * @url https://github.com/google/accompanist/tree/main/pager
+     * @url https://github.com/google/accompanist/
      */
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
-
     implementation "com.google.accompanist:accompanist-flowlayout:$accompanist_version"
 
     // SplashScreen API

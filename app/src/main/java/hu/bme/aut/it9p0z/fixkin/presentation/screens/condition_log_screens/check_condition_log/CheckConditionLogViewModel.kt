@@ -29,9 +29,11 @@ class CheckConditionLogViewModel @Inject constructor(
     var feelingValue = selectedConditionLog.value?.feeling ?: ConditionLog.Feeling.feeling_1
 
 
-    private suspend fun getConditionLog(id: Int) {
-        repository.getConditionLog(id = id).collect { log ->
-            _selectedConditionLog.value = log
+    private fun getConditionLog(id: Int) {
+        viewModelScope.launch {
+            repository.getConditionLog(id = id).collect { log ->
+                _selectedConditionLog.value = log
+            }
         }
     }
 

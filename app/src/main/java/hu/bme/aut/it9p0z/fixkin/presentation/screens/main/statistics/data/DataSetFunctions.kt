@@ -49,38 +49,44 @@ val otherTriggerCategories = listOf(
 fun foodTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableList<Float> {
     val foodTriggerCounters: MutableList<Float> = mutableListOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
     allConditionLogs.forEach { log ->
-        if(log.food_trigger_1 == 1) {
-            foodTriggerCounters[0]++
-        }
-        if (log.food_trigger_1 == 1) {
-            foodTriggerCounters[0]++
-        }
-        if (log.food_trigger_2 == 1) {
-            foodTriggerCounters[1]++
-        }
-        if (log.food_trigger_3 == 1) {
-            foodTriggerCounters[2]++
-        }
-        if (log.food_trigger_4 == 1) {
-            foodTriggerCounters[3]++
-        }
-        if (log.food_trigger_5 == 1) {
-            foodTriggerCounters[4]++
-        }
-        if (log.food_trigger_6 == 1) {
-            foodTriggerCounters[5]++
-        }
-        if (log.food_trigger_7 == 1) {
-            foodTriggerCounters[6]++
-        }
-        if (log.food_trigger_8 == 1) {
-            foodTriggerCounters[7]++
-        }
-        if (log.food_trigger_9 == 1) {
-            foodTriggerCounters[8]++
-        }
-        if (log.food_trigger_10 == 1) {
-            foodTriggerCounters[9]++
+        if (
+            log.feeling == ConditionLog.Feeling.feeling_1 ||
+            log.feeling == ConditionLog.Feeling.feeling_2 ||
+            log.feeling == ConditionLog.Feeling.feeling_3
+        ) {
+            if(log.food_trigger_1 == 1) {
+                foodTriggerCounters[0]++
+            }
+            if (log.food_trigger_1 == 1) {
+                foodTriggerCounters[0]++
+            }
+            if (log.food_trigger_2 == 1) {
+                foodTriggerCounters[1]++
+            }
+            if (log.food_trigger_3 == 1) {
+                foodTriggerCounters[2]++
+            }
+            if (log.food_trigger_4 == 1) {
+                foodTriggerCounters[3]++
+            }
+            if (log.food_trigger_5 == 1) {
+                foodTriggerCounters[4]++
+            }
+            if (log.food_trigger_6 == 1) {
+                foodTriggerCounters[5]++
+            }
+            if (log.food_trigger_7 == 1) {
+                foodTriggerCounters[6]++
+            }
+            if (log.food_trigger_8 == 1) {
+                foodTriggerCounters[7]++
+            }
+            if (log.food_trigger_9 == 1) {
+                foodTriggerCounters[8]++
+            }
+            if (log.food_trigger_10 == 1) {
+                foodTriggerCounters[9]++
+            }
         }
     }
     return foodTriggerCounters
@@ -89,29 +95,35 @@ fun foodTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableList<Floa
 fun weatherTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableList<Float> {
     val weatherTriggerCounters: MutableList<Float> = mutableListOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
     allConditionLogs.forEach { log ->
-        if (log.weather_trigger_1 == 1) {
-            weatherTriggerCounters[0]++
-        }
-        if (log.weather_trigger_2 == 1) {
-            weatherTriggerCounters[1]++
-        }
-        if (log.weather_trigger_3 == 1) {
-            weatherTriggerCounters[2]++
-        }
-        if (log.weather_trigger_4 == 1) {
-            weatherTriggerCounters[3]++
-        }
-        if (log.weather_trigger_5 == 1) {
-            weatherTriggerCounters[4]++
-        }
-        if (log.weather_trigger_6 == 1) {
-            weatherTriggerCounters[5]++
-        }
-        if (log.weather_trigger_7 == 1) {
-            weatherTriggerCounters[6]++
-        }
-        if (log.weather_trigger_8 == 1) {
-            weatherTriggerCounters[7]++
+        if (
+            log.feeling == ConditionLog.Feeling.feeling_1 ||
+            log.feeling == ConditionLog.Feeling.feeling_2 ||
+            log.feeling == ConditionLog.Feeling.feeling_3
+        ) {
+            if (log.weather_trigger_1 == 1) {
+                weatherTriggerCounters[0]++
+            }
+            if (log.weather_trigger_2 == 1) {
+                weatherTriggerCounters[1]++
+            }
+            if (log.weather_trigger_3 == 1) {
+                weatherTriggerCounters[2]++
+            }
+            if (log.weather_trigger_4 == 1) {
+                weatherTriggerCounters[3]++
+            }
+            if (log.weather_trigger_5 == 1) {
+                weatherTriggerCounters[4]++
+            }
+            if (log.weather_trigger_6 == 1) {
+                weatherTriggerCounters[5]++
+            }
+            if (log.weather_trigger_7 == 1) {
+                weatherTriggerCounters[6]++
+            }
+            if (log.weather_trigger_8 == 1) {
+                weatherTriggerCounters[7]++
+            }
         }
     }
     return weatherTriggerCounters
@@ -120,14 +132,20 @@ fun weatherTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableList<F
 fun mentalHealthTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableList<Float> {
     val mentalTriggerCounters: MutableList<Float> = mutableListOf(0f, 0f, 0f)
     allConditionLogs.forEach { log ->
-        if (log.mental_health_trigger_1 == 1) {
-            mentalTriggerCounters[0]++
-        }
-        if (log.mental_health_trigger_2 == 1) {
-            mentalTriggerCounters[1]++
-        }
-        if (log.mental_health_trigger_3 == 1) {
-            mentalTriggerCounters[2]++
+        if (
+            log.feeling == ConditionLog.Feeling.feeling_1 ||
+            log.feeling == ConditionLog.Feeling.feeling_2 ||
+            log.feeling == ConditionLog.Feeling.feeling_3
+        ) {
+            if (log.mental_health_trigger_1 == 1) {
+                mentalTriggerCounters[0]++
+            }
+            if (log.mental_health_trigger_2 == 1) {
+                mentalTriggerCounters[1]++
+            }
+            if (log.mental_health_trigger_3 == 1) {
+                mentalTriggerCounters[2]++
+            }
         }
     }
     return mentalTriggerCounters
@@ -136,17 +154,23 @@ fun mentalHealthTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableL
 fun otherTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableList<Float> {
     val otherTriggerCounters: MutableList<Float> = mutableListOf(0f, 0f, 0f, 0f)
     allConditionLogs.forEach { log ->
-        if (log.other_trigger_1 == 1) {
-            otherTriggerCounters[0]++
-        }
-        if (log.other_trigger_2 == 1) {
-            otherTriggerCounters[1]++
-        }
-        if (log.other_trigger_3 == 1) {
-            otherTriggerCounters[2]++
-        }
-        if (log.other_trigger_4 == 1) {
-            otherTriggerCounters[3]++
+        if (
+            log.feeling == ConditionLog.Feeling.feeling_1 ||
+            log.feeling == ConditionLog.Feeling.feeling_2 ||
+            log.feeling == ConditionLog.Feeling.feeling_3
+        ) {
+            if (log.other_trigger_1 == 1) {
+                otherTriggerCounters[0]++
+            }
+            if (log.other_trigger_2 == 1) {
+                otherTriggerCounters[1]++
+            }
+            if (log.other_trigger_3 == 1) {
+                otherTriggerCounters[2]++
+            }
+            if (log.other_trigger_4 == 1) {
+                otherTriggerCounters[3]++
+            }
         }
     }
     return otherTriggerCounters

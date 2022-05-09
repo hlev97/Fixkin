@@ -8,29 +8,28 @@ import androidx.compose.runtime.Composable
 
 private val LightThemeColors = lightColors(
 
-    primary = md_theme_light_primary,
-    onPrimary = md_theme_light_onPrimary,
-    secondary = md_theme_light_secondary,
-    onSecondary = md_theme_light_onSecondary,
-    error = md_theme_light_error,
-    onError = md_theme_light_onError,
-    background = md_theme_light_background,
-    onBackground = md_theme_light_onBackground,
-    surface = md_theme_light_surface,
-    onSurface = md_theme_light_onSurface,
+    primary = light_primary,
+    onPrimary = light_onPrimary,
+    secondary = light_secondary,
+    onSecondary = light_onSecondary,
+    error = light_error,
+    onError = light_onError,
+    background = light_background,
+    onBackground = light_onBackground,
+    surface = light_surface,
+    onSurface = light_onSurface,
 )
 private val DarkThemeColors = darkColors(
-
-    primary = md_theme_dark_primary,
-    onPrimary = md_theme_dark_onPrimary,
-    secondary = md_theme_dark_secondary,
-    onSecondary = md_theme_dark_onSecondary,
-    error = md_theme_dark_error,
-    onError = md_theme_dark_onError,
-    background = md_theme_dark_background,
-    onBackground = md_theme_dark_onBackground,
-    surface = md_theme_dark_surface,
-    onSurface = md_theme_dark_onSurface,
+    primary = dark_primary,
+    onPrimary = dark_onPrimary,
+    secondary = dark_secondary,
+    onSecondary = dark_onSecondary,
+    error = dark_error,
+    onError = dark_onError,
+    background = dark_background,
+    onBackground = dark_onBackground,
+    surface = dark_surface,
+    onSurface = dark_onSurface,
 )
 
 @Composable

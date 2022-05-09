@@ -322,7 +322,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/assessment/baseline_assessment_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/save/baseline_save_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -332,7 +332,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_statistics_24" />
+                            <entry key="outputName" value="ic_baseline_save_24" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/sentiment_very_satisfied_black_24dp.svg" />
                           </map>
                         </option>

@@ -1,6 +1,7 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history
 
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable

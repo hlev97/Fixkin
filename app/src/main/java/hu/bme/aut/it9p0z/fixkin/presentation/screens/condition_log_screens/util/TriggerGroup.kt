@@ -1,4 +1,4 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log.util
+package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util
 
 abstract class TriggerGroup constructor(val title: String, val triggers: List<Trigger>)
 
@@ -46,4 +46,11 @@ class OtherTriggerGroup : TriggerGroup(
         Smoking(),
         Sweat()
     )
+)
+
+val triggerGroups = listOf(
+    FoodTriggerGroup(),
+    WeatherTriggerGroup(),
+    MentalHealthTriggerGroup(),
+    OtherTriggerGroup()
 )

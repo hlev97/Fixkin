@@ -25,7 +25,7 @@ fun StatisticsScreen(
     result: List<LifeQualityTestResultLog>
 ) {
     val pagerState = rememberPagerState(0)
-    val list = listOf("Food", "Weather", "Mental Health", "Other", "DLQI")
+    val list = listOf("Food Triggers", "Weather Triggers", "Mental Health Triggers", "Other Triggers", "DLQI Results")
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Tabs(pagerState = pagerState, list)
@@ -39,7 +39,6 @@ fun Tabs(pagerState: PagerState, tabs: List<String>) {
     val scope = rememberCoroutineScope()
     ScrollableTabRow(
         selectedTabIndex = pagerState.currentPage,
-        contentColor = Color.White,
         divider = {
             TabRowDefaults.Divider(
                 thickness = 2.dp,
@@ -48,8 +47,7 @@ fun Tabs(pagerState: PagerState, tabs: List<String>) {
         indicator = { tabPositions ->
             TabRowDefaults.Indicator(
                 Modifier.pagerTabIndicatorOffset(pagerState, tabPositions),
-                height = 2.dp,
-                color = Color.White
+                height = 2.dp
             )
         }
     ) {
@@ -57,7 +55,7 @@ fun Tabs(pagerState: PagerState, tabs: List<String>) {
             Tab(
                 text = {
                     Text(
-                        tabs[index],
+                        text = tabs[index],
                         color = if (pagerState.currentPage == index) Color.White else Color.LightGray
                     )
                 },
@@ -111,8 +109,7 @@ fun TabsContent(
         otherTriggerCategories
     )
 
-    val data =
-        getLineData(result)
+    val data = getLineData(result)
 
     HorizontalPager(
         state = pagerState,

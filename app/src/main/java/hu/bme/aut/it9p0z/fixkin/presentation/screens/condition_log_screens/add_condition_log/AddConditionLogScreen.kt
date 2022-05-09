@@ -19,16 +19,20 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.flowlayout.FlowRow
+import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.ConditionLogView
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.Trigger
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.TriggerGroup
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.feelings
+//import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.Trigger
+//import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.TriggerGroup
+//import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.feelings
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.triggerGroups
-import hu.bme.aut.it9p0z.fixkin.ui.theme.bottomNavBarActionUnselected
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.triggerGroupListToTriggerList
 import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorSelected
 import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorUnselected
-import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -39,6 +43,7 @@ fun AddConditionLogScreen(
     addConditionLogViewModel: AddConditionLogViewModel = hiltViewModel()
 ) {
     BackHandler {
+        navController.popBackStack()
         navController.navigate(Screen.Main.screen_route)
     }
 
@@ -54,7 +59,7 @@ fun AddConditionLogScreen(
                     navController.navigate(Screen.Main.screen_route)
                 }
             ) {
-                Text(text = "Save")
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_save_24), contentDescription = "save" )
             }
         },
         topBar = {
@@ -62,94 +67,36 @@ fun AddConditionLogScreen(
                 title = {Text(text = "Create Condition Log")},
                 navigationIcon = {
                     IconButton(
-                        onClick = { navController.navigate(Screen.Main.screen_route) }
+                        onClick = {
+                            navController.popBackStack()
+                            navController.navigate(Screen.Main.screen_route)
+                        }
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "back"
                         )
                     }
-                }
-            )
+                })
         }
-    ) {
+) {
         LazyColumn(modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
         ) {
             item {
                 var sliderPosition by remember { mutableStateOf(0f) }
-                Text(text = "Feeling")
-                Slider(
-                    value = sliderPosition,
-                    onValueChange = { sliderPosition = it },
-                    valueRange = 0f..4f,
-                    onValueChangeFinished = {
-                        addConditionLogViewModel.feelingValue =
-                            sliderPositionToFeeling(sliderPosition)
+                ConditionLogView(
+                    enabled = true,
+                    position = sliderPosition,
+                    triggerGroups = triggerGroups,
+                    onValueChanged = { pos ->
+                         sliderPosition = pos
                     },
-                    steps = 3,
-                    colors = SliderDefaults.colors(
-                        thumbColor = MaterialTheme.colors.secondary,
-                        activeTrackColor = MaterialTheme.colors.secondary
-                    )
+                    onValueChangedFinished = {
+                        addConditionLogViewModel.feelingValue = sliderPositionToFeeling(sliderPosition)
+                    }
                 )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, bottom = 15.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    feelings.forEach { feeling ->
-                        Icon(
-                            painter = painterResource(id = feeling.iconId),
-                            contentDescription = feeling.title
-                        )
-                    }
-                }
-
-                triggerGroups.forEach { triggerGroup ->
-                    Text(text = triggerGroup.title)
-                    FlowRow(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 10.dp, bottom = 15.dp)
-                    ) {
-                        triggerGroup.triggers.forEach { trigger ->
-                            var selected by remember { mutableStateOf(false) }
-                            Chip(
-                                modifier = Modifier
-                                    .padding(horizontal = 8.dp)
-                                    .selectable(
-                                        selected = selected,
-                                        onClick = { },
-                                        role = Role.Checkbox
-                                    ),
-                                colors = if (selected)
-                                    ChipDefaults.chipColors(
-                                        backgroundColor = MaterialTheme.colors.chipColorSelected,
-                                        contentColor = MaterialTheme.colors.contentColorFor(
-                                            MaterialTheme.colors.chipColorSelected
-                                        )
-                                    )
-                                else ChipDefaults.chipColors(
-                                    backgroundColor = MaterialTheme.colors.chipColorUnselected,
-                                    contentColor = contentColorFor(MaterialTheme.colors.chipColorUnselected)
-                                ),
-                                onClick = {
-                                    trigger.selected = !trigger.selected
-                                    selected = trigger.selected
-                                    Log.i(
-                                        "${trigger.title} is selected: ${trigger.selected}",
-                                        "selected check"
-                                    )
-                                }
-                            ) {
-                                Text(trigger.title)
-                            }
-                        }
-                    }
-                }
             }
         }
     }
@@ -188,16 +135,6 @@ fun getConditionLogState(feeling: ConditionLog.Feeling): ConditionLog {
         other_trigger_3 = if(triggers[23].selected) 1 else 0,
         other_trigger_4 = if(triggers[24].selected) 1 else 0
     )
-}
-
-fun triggerGroupListToTriggerList(triggerGroups: List<TriggerGroup>): List<Trigger>  {
-    val triggers = mutableListOf<Trigger>()
-    triggerGroups.forEach { triggerGroup ->  
-        triggerGroup.triggers.forEach { trigger ->
-            triggers.add(trigger)
-        }
-    }
-    return triggers;
 }
 
 fun sliderPositionToFeeling(sliderPosition: Float): ConditionLog.Feeling = when (sliderPosition.toInt()) {

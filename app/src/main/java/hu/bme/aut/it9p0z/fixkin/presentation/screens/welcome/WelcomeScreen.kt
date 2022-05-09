@@ -161,27 +161,3 @@ fun ThirdWelcomePagePreview() {
         PagerScreen(page = WelcomePage.ThirdPage)
     }
 }
-
-@Composable
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-fun FirstWelcomePageDarkPreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(page = WelcomePage.FirstPage)
-    }
-}
-
-@Composable
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-fun SecondWelcomePageDarkPreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(page = WelcomePage.SecondPage)
-    }
-}
-
-@Composable
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-fun ThirdWelcomePageDarkPreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(page = WelcomePage.ThirdPage)
-    }
-}

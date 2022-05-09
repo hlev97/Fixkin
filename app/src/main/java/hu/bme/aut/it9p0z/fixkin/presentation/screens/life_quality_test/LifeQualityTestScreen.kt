@@ -16,11 +16,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.util.questions
@@ -62,7 +64,7 @@ fun LifeQualityTestScreen(
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                text = { Text(text= "Done", fontSize = 18.sp) },
+                text = { Icon(painter = painterResource(id = R.drawable.ic_baseline_save_24), contentDescription = "save" ) },
                 onClick = {
                     if (!checkNull()) {
                         val score = countScore()
