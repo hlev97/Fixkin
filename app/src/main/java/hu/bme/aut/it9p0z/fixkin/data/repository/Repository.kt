@@ -1,64 +1,144 @@
 package hu.bme.aut.it9p0z.fixkin.data.repository
 
-import androidx.lifecycle.LiveData
+import android.content.Context
+import android.util.Log
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.preferencesDataStore
+import hu.bme.aut.it9p0z.fixkin.data.dao.ConditionLogDao
+import hu.bme.aut.it9p0z.fixkin.data.dao.LifeQualityTestResultLogDao
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
-import hu.bme.aut.it9p0z.fixkin.presentation.data.repository.DataStoreRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import java.io.IOException
 import javax.inject.Inject
 
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
 class Repository @Inject constructor(
-    private val dataStoreRepo: DataStoreRepository,
-    private val lqtResultLogRepo: LifeQualityTestResultLogRepository,
-    private val conditionLogRepo: ConditionLogRepository
-) {
+    private val conditionLogDao: ConditionLogDao,
+    private val lqtrLogDao: LifeQualityTestResultLogDao,
+    private val  context: Context
+) : ConditionLogRepository, LifeQualityTestResultLogRepository, DataStoreRepository {
     /**
      * Condition Logs operations
      */
 
-    fun getAllConditionLog(): Flow<List<ConditionLog>> = conditionLogRepo.getAllLogs()
+   override fun getAllConditionLogs(): Flow<List<ConditionLog>> = conditionLogDao.getLogs()
 
-    suspend fun insertConditionLog(log: ConditionLog) { conditionLogRepo.insert(log) }
+    override suspend fun insertConditionLog(log: ConditionLog) { conditionLogDao.insertLog(log) }
 
-    suspend fun updateConditionLog(log: ConditionLog) { conditionLogRepo.update(log) }
+    override suspend fun updateConditionLog(log: ConditionLog) { conditionLogDao.updateLog(log) }
 
-    suspend fun deleteConditionLog(log: ConditionLog) { conditionLogRepo.delete(log) }
+    override suspend fun deleteConditionLog(log: ConditionLog) { conditionLogDao.deleteLog(log) }
 
-    fun getConditionLog(id: Int): Flow<ConditionLog> = conditionLogRepo.getLog(id)
+    override fun getConditionLog(id: Int): Flow<ConditionLog> = conditionLogDao.getLog(id)
 
-    fun getLastConditionLog(): LiveData<ConditionLog> = conditionLogRepo.getLastLog()
+    override fun getLastConditionLog(): Flow<ConditionLog> = conditionLogDao.getLastLog()
 
     /**
      * Test Results Table operations
      */
 
-    fun getAllTestResult(): Flow<List<LifeQualityTestResultLog>> = lqtResultLogRepo.getAllLogs()
+    override fun getAllLqtrLogs(): Flow<List<LifeQualityTestResultLog>> = lqtrLogDao.getLogs()
 
-    suspend fun insertTestResult(result: LifeQualityTestResultLog) { lqtResultLogRepo.insert(result) }
+    override fun getLqtrLog(id: Int): Flow<LifeQualityTestResultLog> = lqtrLogDao.getLog(id)
 
-    suspend fun updateTestResult(result: LifeQualityTestResultLog) { lqtResultLogRepo.update(result) }
+    override fun getLastLqtrLog(): Flow<LifeQualityTestResultLog> = lqtrLogDao.getLastLog()
 
-    suspend fun deleteTestResult(result: LifeQualityTestResultLog) { lqtResultLogRepo.delete(result) }
+    override suspend fun insertLqtrLog(log: LifeQualityTestResultLog) {
+        lqtrLogDao.insertLog(log)
+    }
 
-    fun getTestResult(id: Int): LiveData<LifeQualityTestResultLog> = lqtResultLogRepo.getLog(id)
+    override suspend fun updateLqtrLog(log: LifeQualityTestResultLog) {
+        lqtrLogDao.updateLog(log)
+    }
 
-    fun getLastTestResult(): LiveData<LifeQualityTestResultLog> = lqtResultLogRepo.getLastLog()
+    override suspend fun deleteLqtrLog(log: LifeQualityTestResultLog) {
+       lqtrLogDao.deleteLog(log)
+    }
 
     /**
      * Preferences operations
      */
 
-    suspend fun saveOnOpeningState(completed: Boolean) { dataStoreRepo.saveOnOpeningState(completed) }
+    private object PreferenceKeys {
+        val onFirstOpening = booleanPreferencesKey(name = "on_first_opening")
+        val dailyConditionLogCounter = intPreferencesKey(name = "on_daily_condition_log_counter")
+        val onWeeklyLifeQualityTestFilling = booleanPreferencesKey(name = "on_weekly_life_quality_test_filling")
+    }
 
-    fun readOnOpeningState(): Flow<Boolean> = dataStoreRepo.readOnOpeningState()
+    private val dataStore = context.dataStore
 
-    suspend fun incrementDailyConditionLogCounter() { dataStoreRepo.incrementDailyConditionLogCounter() }
+    override suspend fun saveOnOpeningState(completed: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferenceKeys.onFirstOpening] = completed
+        }
+    }
 
-    fun readDailyConditionLogCounterValue(): Flow<Int> = dataStoreRepo.readDailyConditionLogCounterValue()
+    override fun readOnOpeningState(): Flow<Boolean> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                val onFirstOpeningState = preferences[PreferenceKeys.onFirstOpening] ?: false
+                onFirstOpeningState
+            }
+    }
 
-    suspend fun initDailyConditionLogCounter() { dataStoreRepo.initDailyConditionLogCounter() }
+    override suspend fun incrementDailyConditionLogCounter() {
+        dataStore.edit { preferences ->
+            val currentCounterValue = preferences[PreferenceKeys.dailyConditionLogCounter] ?: 0
+            preferences[PreferenceKeys.dailyConditionLogCounter] = currentCounterValue + 1
+        }
+    }
 
-    suspend fun saveOnWeeklyLifeQualityTestFilling(completed: Boolean) { dataStoreRepo.saveOnWeeklyLifeQualityTestFilling(completed) }
+    override fun readDailyConditionLogCounterValue(): Flow<Int> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                preferences[PreferenceKeys.dailyConditionLogCounter] ?: 0
+            }
+    }
 
-    fun readOnWeeklyLifeQualityTestFillingState(): Flow<Boolean> = dataStoreRepo.readOnWeeklyLifeQualityTestFillingState()
+    override suspend fun initDailyConditionLogCounter() {
+        dataStore.edit { preferences ->
+            preferences[PreferenceKeys.dailyConditionLogCounter] = 0
+        }
+    }
+
+    override suspend fun saveOnWeeklyLifeQualityTestFilling(completed: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferenceKeys.onWeeklyLifeQualityTestFilling] = completed
+        }
+    }
+
+    override fun readOnWeeklyLifeQualityTestFillingState(): Flow<Boolean> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                val onWeeklyLifeQualityTestFillingState =
+                    preferences[PreferenceKeys.onWeeklyLifeQualityTestFilling] ?: false
+                onWeeklyLifeQualityTestFillingState
+            }
+    }
 }

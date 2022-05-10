@@ -1,7 +1,5 @@
 package hu.bme.aut.it9p0z.fixkin.data.model
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -12,8 +10,8 @@ import java.time.LocalDateTime
 @Entity(tableName = "condition_logs")
 data class ConditionLog(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "date") val date: LocalDateTime,
-    @ColumnInfo(name = "feeling") val feeling: Feeling,
+    @ColumnInfo(name = PersistenceConstants.condition_date) val date: LocalDateTime,
+    @ColumnInfo(name = PersistenceConstants.condition_feeling) val feeling: Feeling,
 
     @ColumnInfo(name = PersistenceConstants.food_trigger_1) val food_trigger_1: Int,
     @ColumnInfo(name = PersistenceConstants.food_trigger_2) val food_trigger_2: Int,

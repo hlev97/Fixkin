@@ -3,18 +3,14 @@ package hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.content
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.semantics
@@ -46,7 +42,6 @@ fun ListContent(
                     true
                 }
             )
-
             val logHeightAnimation by animateDpAsState(
                 targetValue = if (isLogItemDismissed) 0.dp else 120.dp,
                 animationSpec = tween(delayMillis = 300),
@@ -93,16 +88,9 @@ fun ListContent(
                     )
                 }
             )
-            val dividerVisibilityAnimation by animateFloatAsState(
-                targetValue = if (dismissState.targetValue == DismissValue.Default) {
-                    1f
-                } else 0f,
-                animationSpec = tween(delayMillis = 300)
-            )
             Divider(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .alpha(dividerVisibilityAnimation)
             )
         }
     }

@@ -1,4 +1,4 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.util
+package hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.data
 
 val questions = mutableListOf(
     TestQuestion.Qs1,

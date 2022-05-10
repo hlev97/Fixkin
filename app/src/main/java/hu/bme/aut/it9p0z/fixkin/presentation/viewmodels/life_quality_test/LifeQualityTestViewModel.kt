@@ -1,4 +1,4 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test
+package hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.life_quality_test
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class LifeQualityTestViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-    suspend fun saveTestResult(result: LifeQualityTestResultLog) { repository.insertTestResult(result) }
+    suspend fun saveTestResult(result: LifeQualityTestResultLog) { repository.insertLqtrLog(result) }
 
     suspend fun saveOnWeeklyLifeQualityTestFilling(completed: Boolean) { repository.saveOnWeeklyLifeQualityTestFilling(completed) }
 

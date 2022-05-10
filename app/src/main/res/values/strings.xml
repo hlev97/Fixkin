@@ -1,4 +1,51 @@
 <resources>
     <string name="app_name">Fixkin</string>
     <string name="question_count"><![CDATA[ of %d]]></string>
+    <!--DLQI Test questions-->
+    <string name="lqt_question_1">Over the last week, how itchy, sore, painful or stinging has your skin been?</string>
+    <string name="lqt_question_2">Over the last week, how embarrassed or self conscious have you been because of your skin?</string>
+    <string name="lqt_question_3">Over the last week, how much has your skin interfered with you going shopping or looking after your home or garden?</string>
+    <string name="lqt_question_4">Over the last week, how much has your skin influenced the clothes you wear?</string>
+    <string name="lqt_question_5">Over the last week, how much has your skin affected any social or leisure activities?</string>
+    <string name="lqt_question_6">Over the last week, how much has your skin made it difficult for you to do any sport?</string>
+    <string name="lqt_question_7a">Over the last week, has your skin prevented you from working or studying?</string>
+    <string name="lqt_question_7b">If \"No\", over the last week how much has your skin been a problem at work or studying?</string>
+    <string name="lqt_question_8">Over the last week, how much has your skin created problems with your partner or any of your close friends or relatives?</string>
+    <string name="lqt_question_9">Over the last week, how much has your skin caused any sexual difficulties?</string>
+    <string name="lqt_question_10">Over the last week, how much of a problem has the treatment for your skin been, for example by making your home messy, or by taking up time?</string>
+    <!--Triggers-->
+    <string name="gluten">gluten</string>
+    <string name="milk">milk</string>
+    <string name="lactose">lactose</string>
+    <string name="egg">egg</string>
+    <string name="soy">soy</string>
+    <string name="nightshade_vegetable">nightshade vegetable</string>
+    <string name="citrus_fruit">citrus fruit</string>
+    <string name="fast_food">fast food</string>
+    <string name="fatty_food">fatty food</string>
+    <string name="alcohol">alcohol</string>
+    <string name="hot">hot</string>
+    <string name="dry">dry</string>
+    <string name="cold">cold</string>
+    <string name="rainy">rainy</string>
+    <string name="windy">windy</string>
+    <string name="snowy">snowy</string>
+    <string name="cold_weather_front">cold weather front</string>
+    <string name="warm_weather_front">warm weather front</string>
+    <string name="anxiety">anxiety</string>
+    <string name="depression">depression</string>
+    <string name="insomnia">insomnia</string>
+    <string name="medicine">medicine</string>
+    <string name="infection">infection</string>
+    <string name="smoking">smoking</string>
+    <string name="sweat">sweat</string>
+    <string name="save_condition_log_btn">Save condition log button</string>
+    <string name="add_condition_log_title">Create Condition Log</string>
+    <string name="back_button">Back button</string>
+    <string name="close_btn">Close</string>
+    <string name="deleten_btn">Delete</string>
+    <string name="edit_btn">edit btn</string>
+    <string name="save_lfqtr">"Save life quality test "</string>
+    <string name="feeling_icon">feeling</string>
+    <string name="pager_image">Pager Image</string>
 </resources>

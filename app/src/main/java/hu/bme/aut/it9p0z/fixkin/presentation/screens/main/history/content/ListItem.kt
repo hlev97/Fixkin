@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import hu.bme.aut.it9p0z.fixkin.R
@@ -65,7 +66,7 @@ fun ListItem(
                     .align(Alignment.CenterEnd)
                     .padding(end = 15.dp),
                 painter = painterResource(id = feelingToIcon(log.feeling)),
-                contentDescription = "feeling"
+                contentDescription = stringResource(id = R.string.feeling_icon)
             )
         }
     }
@@ -109,7 +110,7 @@ fun ListItemBackground(
                     .scale(scale),
                 imageVector = Icons.Default.Delete,
                 tint = iconColor,
-                contentDescription = "Delete Log"
+                contentDescription = stringResource(id = R.string.deleten_btn)
             )
         }
     }
@@ -136,7 +137,7 @@ fun ListItemPreview() {
                     .align(Alignment.CenterEnd)
                     .padding(end = 15.dp),
                 painter = painterResource(id = R.drawable.ic_sentiment_very_satisfied_black_24dp),
-                contentDescription = "feeling"
+                contentDescription = stringResource(R.string.feeling_icon)
             )
         }
     }
@@ -163,7 +164,7 @@ fun ListItemDarkPreview() {
                     .align(Alignment.CenterEnd)
                     .padding(end = 15.dp),
                 painter = painterResource(id = R.drawable.ic_sentiment_very_satisfied_black_24dp),
-                contentDescription = "feeling"
+                contentDescription = stringResource(id = R.string.feeling_icon)
             )
         }
     }

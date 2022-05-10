@@ -1,4 +1,4 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util
+package hu.bme.aut.it9p0z.fixkin.util
 
 abstract class TriggerGroup constructor(val title: String, val triggers: List<Trigger>)
 

@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
@@ -79,15 +80,19 @@ fun TabsContent(
     allConditionLogs: List<ConditionLog>,
     result: List<LifeQualityTestResultLog>
 ) {
-    val foodTriggerFrequency = foodTriggerFrequency(allConditionLogs = allConditionLogs);
-    val foodTriggerCategories = foodTriggerCategories
+    val foodTriggerFrequency = foodTriggerFrequency(allConditionLogs = allConditionLogs)
+    val foodTriggerCategories = foodTriggerCategories.map { id ->
+        stringResource(id = id)
+    }
     val foodData = triggersData(
         foodTriggerFrequency,
         foodTriggerCategories
     )
 
     val weatherTriggerFrequency = weatherTriggerFrequency(allConditionLogs = allConditionLogs)
-    val weatherTriggerCategories = weatherTriggerCategories
+    val weatherTriggerCategories = weatherTriggerCategories.map { id ->
+        stringResource(id = id)
+    }
     val weatherData =
         triggersData(
             weatherTriggerFrequency,
@@ -95,7 +100,9 @@ fun TabsContent(
         )
 
     val mentalTriggerFrequency =  mentalHealthTriggerFrequency(allConditionLogs = allConditionLogs)
-    val mentalTriggerCategories = mentalHealthTriggerCategories
+    val mentalTriggerCategories = mentalHealthTriggerCategories.map { id ->
+        stringResource(id = id)
+    }
     val mentalHealthData =
         triggersData(
             mentalTriggerFrequency,
@@ -103,7 +110,9 @@ fun TabsContent(
         )
 
     val otherTriggerFrequency =  otherTriggerFrequency(allConditionLogs = allConditionLogs)
-    val otherTriggerCategories = otherTriggerCategories
+    val otherTriggerCategories = otherTriggerCategories.map { id ->
+        stringResource(id = id)
+    }
     val otherData = triggersData(
         otherTriggerFrequency,
         otherTriggerCategories

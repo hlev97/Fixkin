@@ -10,7 +10,9 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.ui.theme.FixkinTheme
 import java.time.format.DateTimeFormatter
@@ -31,7 +33,7 @@ fun CheckConditionBar(
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "back"
+                    contentDescription = stringResource(id = R.string.back_button)
                 )
             }
         },
@@ -46,19 +48,19 @@ fun CheckConditionBar(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "done"
+                        contentDescription = stringResource(R.string.close_btn)
                     )
                 }
             } else {
                 IconButton(onClick = { onDelete() }) {
-                    Icon(imageVector = Icons.Default.Delete, contentDescription = "delete" )
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = stringResource(R.string.deleten_btn) )
                 }
                 IconButton(
                     onClick = { setEditable() }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        contentDescription = "done"
+                        contentDescription = stringResource(R.string.edit_btn)
                     )
                 }
             }

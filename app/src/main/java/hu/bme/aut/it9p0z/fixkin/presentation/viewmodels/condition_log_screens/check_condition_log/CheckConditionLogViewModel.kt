@@ -1,19 +1,15 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log
+package hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.condition_log_screens.check_condition_log
 
-import androidx.compose.runtime.*
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
-import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.bme.aut.it9p0z.fixkin.data.repository.Repository
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.feelingToSliderPosition
+import hu.bme.aut.it9p0z.fixkin.util.feelingToSliderPosition
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

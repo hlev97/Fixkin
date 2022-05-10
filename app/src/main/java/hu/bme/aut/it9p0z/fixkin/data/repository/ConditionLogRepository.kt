@@ -1,23 +1,18 @@
 package hu.bme.aut.it9p0z.fixkin.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import hu.bme.aut.it9p0z.fixkin.data.dao.ConditionLogDao
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import kotlinx.coroutines.flow.Flow
 
-class ConditionLogRepository(
-    private val dao: ConditionLogDao
-) {
-    fun getAllLogs(): Flow<List<ConditionLog>> = dao.getLogs()
+interface ConditionLogRepository  {
+    fun getAllConditionLogs(): Flow<List<ConditionLog>>;
 
-    fun getLog(id: Int): Flow<ConditionLog> = dao.getLog(id)
+    fun getConditionLog(id: Int): Flow<ConditionLog>;
 
-    fun getLastLog(): LiveData<ConditionLog> = dao.getLastLog().asLiveData()
+    fun getLastConditionLog(): Flow<ConditionLog>;
 
-    suspend fun insert(log: ConditionLog) { dao.insertLog(log) }
+    suspend fun insertConditionLog(log: ConditionLog);
 
-    suspend fun update(log: ConditionLog) { dao.updateLog(log) }
+    suspend fun updateConditionLog(log: ConditionLog);
 
-    suspend fun delete(log: ConditionLog) { dao.deleteLog(log) }
+    suspend fun deleteConditionLog(log: ConditionLog);
 }

@@ -1,28 +1,27 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.check_condition_log
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration
 import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.ConditionLogView
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.getConditionLogState
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.*
-import hu.bme.aut.it9p0z.fixkin.ui.theme.FixkinTheme
+import hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.condition_log_screens.check_condition_log.CheckConditionLogViewModel
+import hu.bme.aut.it9p0z.fixkin.util.feelingToFloat
+import hu.bme.aut.it9p0z.fixkin.util.fetchTriggerGroups
+import hu.bme.aut.it9p0z.fixkin.util.getConditionLogState
+import hu.bme.aut.it9p0z.fixkin.util.sliderPositionToFeeling
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @RequiresApi(Build.VERSION_CODES.O)
@@ -78,7 +77,7 @@ fun CheckConditionLogScreen(
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_save_24),
-                            contentDescription = "save"
+                            contentDescription = stringResource(id = R.string.save_condition_log_btn)
                         )
                     }
                 }

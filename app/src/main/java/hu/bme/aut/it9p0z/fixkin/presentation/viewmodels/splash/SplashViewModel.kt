@@ -1,4 +1,4 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.splash
+package hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.splash
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -6,12 +6,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
-import hu.bme.aut.it9p0z.fixkin.presentation.data.repository.DataStoreRepository
+import hu.bme.aut.it9p0z.fixkin.data.repository.DataStoreRepository
+import hu.bme.aut.it9p0z.fixkin.data.repository.Repository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
-    private val repository: DataStoreRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
@@ -32,5 +33,4 @@ class SplashViewModel @Inject constructor(
             _isLoading.value = false
         }
     }
-
 }

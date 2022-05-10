@@ -4,46 +4,47 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants
 import hu.ma.charts.legend.data.LegendEntry
 import kotlin.math.roundToInt
 
 val foodTriggerCategories = listOf(
-    PersistenceConstants.food_trigger_1,
-    PersistenceConstants.food_trigger_2,
-    PersistenceConstants.food_trigger_3,
-    PersistenceConstants.food_trigger_4,
-    PersistenceConstants.food_trigger_5,
-    PersistenceConstants.food_trigger_6,
-    PersistenceConstants.food_trigger_7,
-    PersistenceConstants.food_trigger_8,
-    PersistenceConstants.food_trigger_9,
-    PersistenceConstants.food_trigger_10
+    R.string.gluten,
+    R.string.milk,
+    R.string.lactose,
+    R.string.egg,
+    R.string.soy,
+    R.string.nightshade_vegetable,
+    R.string.citrus_fruit,
+    R.string.fast_food,
+    R.string.fatty_food,
+    R.string.alcohol
 )
 
 val weatherTriggerCategories = listOf(
-    PersistenceConstants.weather_trigger_1,
-    PersistenceConstants.weather_trigger_2,
-    PersistenceConstants.weather_trigger_3,
-    PersistenceConstants.weather_trigger_4,
-    PersistenceConstants.weather_trigger_5,
-    PersistenceConstants.weather_trigger_6,
-    PersistenceConstants.weather_trigger_7,
-    PersistenceConstants.weather_trigger_8
+    R.string.hot,
+    R.string.dry,
+    R.string.cold,
+    R.string.rainy,
+    R.string.windy,
+    R.string.snowy,
+    R.string.cold_weather_front,
+    R.string.warm_weather_front
 )
 
 val mentalHealthTriggerCategories = listOf(
-    PersistenceConstants.mental_health_trigger_1,
-    PersistenceConstants.mental_health_trigger_2,
-    PersistenceConstants.mental_health_trigger_3
+    R.string.anxiety,
+    R.string.depression,
+    R.string.insomnia
 )
 
 val otherTriggerCategories = listOf(
-    PersistenceConstants.other_trigger_1,
-    PersistenceConstants.other_trigger_2,
-    PersistenceConstants.other_trigger_3,
-    PersistenceConstants.other_trigger_4
+    R.string.medicine,
+    R.string.infection,
+    R.string.smoking,
+    R.string.sweat
 )
 
 fun foodTriggerFrequency(allConditionLogs: List<ConditionLog>): MutableList<Float> {

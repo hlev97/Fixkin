@@ -1,12 +1,10 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.add_condition_log
 
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -14,25 +12,17 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.flowlayout.FlowRow
 import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
+import hu.bme.aut.it9p0z.fixkin.util.triggerGroups
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.ConditionLogView
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.Trigger
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.TriggerGroup
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.feelings
-//import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.Trigger
-//import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.TriggerGroup
-//import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.feelings
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.triggerGroups
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util.triggerGroupListToTriggerList
-import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorSelected
-import hu.bme.aut.it9p0z.fixkin.ui.theme.chipColorUnselected
+import hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.condition_log_screens.add_condition_log.AddConditionLogViewModel
+import hu.bme.aut.it9p0z.fixkin.util.triggerGroupListToTriggerList
 import java.time.LocalDateTime
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -56,15 +46,19 @@ fun AddConditionLogScreen(
                 onClick = {
                     val log = getConditionLogState(addConditionLogViewModel.feelingValue)
                     addConditionLogViewModel.insertConditionLog(log = log)
+                    addConditionLogViewModel.increaseDailyConditionLogCounter()
                     navController.navigate(Screen.Main.screen_route)
                 }
             ) {
-                Icon(painter = painterResource(id = R.drawable.ic_baseline_save_24), contentDescription = "save" )
+                Icon(painter = painterResource(
+                    id = R.drawable.ic_baseline_save_24),
+                    contentDescription = stringResource(R.string.save_condition_log_btn)
+                )
             }
         },
         topBar = {
             TopAppBar(
-                title = {Text(text = "Create Condition Log")},
+                title = {Text(text = stringResource(R.string.add_condition_log_title))},
                 navigationIcon = {
                     IconButton(
                         onClick = {
@@ -74,7 +68,7 @@ fun AddConditionLogScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "back"
+                            contentDescription = stringResource(R.string.back_button)
                         )
                     }
                 })

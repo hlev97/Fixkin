@@ -1,7 +1,6 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test
 
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -15,21 +14,20 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import hu.bme.aut.it9p0z.fixkin.R
 import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.util.questions
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog.Result
-import hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.util.TestQuestion
+import hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.life_quality_test.LifeQualityTestViewModel
+import hu.bme.aut.it9p0z.fixkin.presentation.screens.life_quality_test.data.questions
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -56,15 +54,19 @@ fun LifeQualityTestScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "back"
+                            contentDescription = stringResource(id = R.string.back_button)
                         )
                     }
                 }
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Icon(painter = painterResource(id = R.drawable.ic_baseline_save_24), contentDescription = "save" ) },
+           FloatingActionButton(
+                content = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_save_24),
+                        contentDescription = stringResource(id = R.string.save_lfqtr,)
+                    ) },
                 onClick = {
                     if (!checkNull()) {
                         val score = countScore()
@@ -109,7 +111,7 @@ fun LifeQualityTestScreen(
                         .fillMaxWidth()
                         .background(MaterialTheme.colors.background)) {
                         Text(
-                            text = "${i+1}. " + question.text,
+                            text = "${i+1}. " + stringResource(question.stringResourceId),
                             style = MaterialTheme.typography.subtitle1,
                             modifier = Modifier
                                 .padding(10.dp),

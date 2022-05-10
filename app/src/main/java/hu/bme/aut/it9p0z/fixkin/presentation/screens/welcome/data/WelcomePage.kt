@@ -1,4 +1,4 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.welcome.util
+package hu.bme.aut.it9p0z.fixkin.presentation.screens.welcome.data
 
 import hu.bme.aut.it9p0z.fixkin.R
 

@@ -6,19 +6,16 @@ import hu.bme.aut.it9p0z.fixkin.data.dao.LifeQualityTestResultLogDao
 import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import kotlinx.coroutines.flow.Flow
 
-class LifeQualityTestResultLogRepository(
-    private val dao: LifeQualityTestResultLogDao
-) {
-    fun getAllLogs(): Flow<List<LifeQualityTestResultLog>> = dao.getLogs()
+interface LifeQualityTestResultLogRepository {
+    fun getAllLqtrLogs(): Flow<List<LifeQualityTestResultLog>>
 
-    fun getLog(id: Int): LiveData<LifeQualityTestResultLog> = dao.getLog(id).asLiveData()
+    fun getLqtrLog(id: Int): Flow<LifeQualityTestResultLog>
 
-    fun getLastLog(): LiveData<LifeQualityTestResultLog> = dao.getLastLog().asLiveData()
+    fun getLastLqtrLog(): Flow<LifeQualityTestResultLog>
 
-    suspend fun insert(log: LifeQualityTestResultLog) { dao.insertLog(log) }
+    suspend fun insertLqtrLog(log: LifeQualityTestResultLog)
 
-    suspend fun update(log: LifeQualityTestResultLog) { dao.updateLog(log) }
+    suspend fun updateLqtrLog(log: LifeQualityTestResultLog)
 
-    suspend fun delete(log: LifeQualityTestResultLog) { dao.deleteLog(log) }
-
+    suspend fun deleteLqtrLog(log: LifeQualityTestResultLog)
 }

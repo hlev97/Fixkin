@@ -1,6 +1,7 @@
 package hu.bme.aut.it9p0z.fixkin.presentation.screens.main
 
 import android.os.Build
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Transition
@@ -27,11 +28,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import hu.bme.aut.it9p0z.fixkin.data.model.ConditionLog
+import hu.bme.aut.it9p0z.fixkin.data.model.LifeQualityTestResultLog
 import hu.bme.aut.it9p0z.fixkin.navigation.MainScreenNavigationGraph
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.MainTopAppBar
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.component.bottom_navigation.BottomNav
+import hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.main.MainViewModel
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 import kotlin.math.roundToInt
 
 @ExperimentalMaterialApi
@@ -45,6 +51,22 @@ fun MainScreen(
 
     val allConditionLogs by mainViewModel.allConditionLogs.collectAsState()
     val allLifeQualityTestResultLogs by mainViewModel.allLifeQualityTestResultLogs.collectAsState()
+    val dailyConditionLogCounter by mainViewModel.dailyConditionLogCounter.collectAsState()
+
+    val addConditionLogButtonAllowed = remember { mutableStateOf(true) }
+
+    if (allConditionLogs.isNotEmpty()) {
+        if (is24HourBetween(allConditionLogs[allConditionLogs.size-1])) {
+            if (dailyConditionLogCounter > 2) mainViewModel.initDailyConditionLogCounter()
+            addConditionLogButtonAllowed.value = true
+        } else addConditionLogButtonAllowed.value = dailyConditionLogCounter < 2
+    }
+
+    val fillOutDlqiAllowed  = remember { mutableStateOf(true) }
+    if (allLifeQualityTestResultLogs.isNotEmpty()) {
+        fillOutDlqiAllowed.value = is1WeekBetween(allLifeQualityTestResultLogs[allLifeQualityTestResultLogs.size-1])
+    }
+
     val mainNavController = rememberNavController()
 
     val openMenu = remember { mutableStateOf(false) }
@@ -79,9 +101,7 @@ fun MainScreen(
         }
     }
 
-    BackHandler {
-
-    }
+    BackHandler {}
 
     Scaffold(
         modifier = Modifier
@@ -144,7 +164,8 @@ fun MainScreen(
                             modifier = Modifier
                                 .padding(horizontal = 15.dp)
                                 .padding(top = 15.dp),
-                            onClick = { navController.navigate(Screen.AddConditionLog.screen_route) }
+                            onClick = { navController.navigate(Screen.AddConditionLog.screen_route) },
+                            enabled = addConditionLogButtonAllowed.value
                         ) {
                             Text(text = "Add Condition Log")
                         }
@@ -155,7 +176,8 @@ fun MainScreen(
                             modifier = Modifier
                                 .padding(horizontal = 15.dp)
                                 .padding(bottom = 15.dp),
-                            onClick = { navController.navigate(Screen.LifeQualityTest.screen_route) }
+                            onClick = { navController.navigate(Screen.LifeQualityTest.screen_route) },
+                            enabled = fillOutDlqiAllowed.value
                         ) {
                             Text(text = "Fill out DLQI Survey")
                         }
@@ -172,3 +194,14 @@ fun MainScreen(
         }
     }
 }
+
+@RequiresApi(Build.VERSION_CODES.O)
+private fun is24HourBetween(log: ConditionLog): Boolean
+    = ChronoUnit.HOURS.between(log.date, LocalDateTime.now()) >= 24
+
+@RequiresApi(Build.VERSION_CODES.O)
+private fun is1WeekBetween(log: LifeQualityTestResultLog): Boolean {
+    return ChronoUnit.HOURS.between(log.lqt_date, LocalDateTime.now()) >= 24 * 7
+}
+
+

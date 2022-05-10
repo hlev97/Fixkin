@@ -1,108 +1,108 @@
-package hu.bme.aut.it9p0z.fixkin.presentation.screens.condition_log_screens.util
+package hu.bme.aut.it9p0z.fixkin.util
 
-import hu.bme.aut.it9p0z.fixkin.util.PersistenceConstants
+import hu.bme.aut.it9p0z.fixkin.R
 
 abstract class Trigger constructor(open var selected: Boolean) {
-    open val title: String = ""
+    open val stringResourceId: Int = 0
 }
 
 class Gluten(override var selected: Boolean = false) : Trigger(selected) {
-  override val title: String = PersistenceConstants.food_trigger_1
+  override val stringResourceId: Int = R.string.gluten
 }
 
 class Milk(override var selected: Boolean = false) : Trigger(selected) {
-  override val title: String = PersistenceConstants.food_trigger_2
+  override val stringResourceId: Int = R.string.milk
 }
 
 class Lactose(override var selected: Boolean = false) : Trigger(selected) {
-  override val title: String = PersistenceConstants.food_trigger_3
+  override val stringResourceId: Int = R.string.lactose
 }
 
 class Egg constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.food_trigger_4
+    override val stringResourceId: Int = R.string.egg
 }
 
 class Soy constructor(override var selected: Boolean = false) :  Trigger(selected) {
-    override val title: String = PersistenceConstants.food_trigger_5
+    override val stringResourceId: Int = R.string.soy
 }
 
 class NightShade constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.food_trigger_6
+    override val stringResourceId: Int = R.string.nightshade_vegetable
 }
 
 class CitrusFruit constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.food_trigger_7
+    override val stringResourceId: Int = R.string.citrus_fruit
 }
 
 class FastFood constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.food_trigger_7
+    override val stringResourceId: Int = R.string.fast_food
 }
 
 class FattyFoods constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.food_trigger_8
+    override val stringResourceId: Int = R.string.fatty_food
 }
 
 class Alcohol constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.food_trigger_9
+    override val stringResourceId: Int = R.string.alcohol
 }
 
 class Hot constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.weather_trigger_1
+    override val stringResourceId: Int = R.string.hot
 
 }
 
 class Dry constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.weather_trigger_2
+    override val stringResourceId: Int = R.string.dry
 }
 
 class Cold constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.weather_trigger_3
+    override val stringResourceId: Int = R.string.cold
 }
 
 class Rainy constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.weather_trigger_4
+    override val stringResourceId: Int = R.string.rainy
 }
 
 class Windy constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.weather_trigger_5
+    override val stringResourceId: Int = R.string.windy
 }
 
 class Snowy constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.weather_trigger_6
+    override val stringResourceId: Int = R.string.snowy
 }
 
 class ColdFront constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.weather_trigger_7
+    override val stringResourceId: Int = R.string.cold_weather_front
 }
 
 class WarmFront constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.weather_trigger_8
+    override val stringResourceId: Int = R.string.warm_weather_front
 }
 
 class Anxiety constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.mental_health_trigger_1
+    override val stringResourceId: Int = R.string.anxiety
 }
 
 class Depression constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.mental_health_trigger_2
+    override val stringResourceId: Int = R.string.depression
 }
 
 class Insomnia constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.mental_health_trigger_3
+    override val stringResourceId: Int = R.string.insomnia
 }
 
 class Medicine constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.other_trigger_1
+    override val stringResourceId: Int = R.string.medicine
 }
 
 class Infection constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.other_trigger_2
+    override val stringResourceId: Int =R.string.infection
 }
 
 class Smoking constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.other_trigger_3
+    override val stringResourceId: Int = R.string.smoking
 }
 
 class Sweat constructor(override var selected: Boolean = false) : Trigger(selected) {
-    override val title: String = PersistenceConstants.other_trigger_4
+    override val stringResourceId: Int = R.string.sweat
 }
