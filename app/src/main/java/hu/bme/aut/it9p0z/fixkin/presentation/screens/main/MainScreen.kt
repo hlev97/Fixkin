@@ -48,7 +48,6 @@ fun MainScreen(
     navController: NavHostController,
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
-
     val allConditionLogs by mainViewModel.allConditionLogs.collectAsState()
     val allLifeQualityTestResultLogs by mainViewModel.allLifeQualityTestResultLogs.collectAsState()
     val dailyConditionLogCounter by mainViewModel.dailyConditionLogCounter.collectAsState()

@@ -11,6 +11,8 @@ import hu.bme.aut.it9p0z.fixkin.navigation.Screen
 import hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.main.MainViewModel
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.content.EmptyContent
 import hu.bme.aut.it9p0z.fixkin.presentation.screens.main.history.content.ListContent
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 @ExperimentalMaterialApi
 @RequiresApi(Build.VERSION_CODES.O)
@@ -29,8 +31,13 @@ fun HistoryScreen(
                 navController.navigate(Screen.CheckConditionLog.passId(id))
             },
             onDelete = { log ->
+                if (!is24HourBetween(log) ) mainViewModel.decrementDailyConditionLogCounter()
                 mainViewModel.deleteConditionLog(log)
             }
         )
     }
 }
+
+@RequiresApi(Build.VERSION_CODES.O)
+private fun is24HourBetween(log: ConditionLog): Boolean
+        = ChronoUnit.HOURS.between(log.date, LocalDateTime.now()) >= 24

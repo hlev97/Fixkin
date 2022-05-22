@@ -16,6 +16,7 @@ import hu.bme.aut.it9p0z.fixkin.presentation.viewmodels.splash.SplashViewModel
 import hu.bme.aut.it9p0z.fixkin.ui.theme.FixkinTheme
 import javax.inject.Inject
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @AndroidEntryPoint
@@ -23,7 +24,6 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var splashViewModel: SplashViewModel
 
-    @OptIn(ExperimentalMaterialApi::class)
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

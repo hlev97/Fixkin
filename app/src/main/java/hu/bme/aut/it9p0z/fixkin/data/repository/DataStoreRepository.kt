@@ -17,6 +17,8 @@ interface DataStoreRepository {
 
     suspend fun incrementDailyConditionLogCounter()
 
+    suspend fun decrementDailyConditionLogCounter()
+
     fun readDailyConditionLogCounterValue(): Flow<Int>
 
     suspend fun initDailyConditionLogCounter()

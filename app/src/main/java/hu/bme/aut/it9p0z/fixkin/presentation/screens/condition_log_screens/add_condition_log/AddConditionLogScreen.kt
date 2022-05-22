@@ -37,6 +37,13 @@ fun AddConditionLogScreen(
         navController.navigate(Screen.Main.screen_route)
     }
 
+    val triggerGroups = triggerGroups
+    for (triggerGroup in triggerGroups) {
+        for (trigger in triggerGroup.triggers) {
+            trigger.selected = false
+        }
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxWidth(),
         floatingActionButtonPosition = FabPosition.End,

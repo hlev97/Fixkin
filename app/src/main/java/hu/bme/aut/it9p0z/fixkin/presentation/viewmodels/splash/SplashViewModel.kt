@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hu.bme.aut.it9p0z.fixkin.navigation.Screen
-import hu.bme.aut.it9p0z.fixkin.data.repository.DataStoreRepository
 import hu.bme.aut.it9p0z.fixkin.data.repository.Repository
 import kotlinx.coroutines.launch
 import javax.inject.Inject

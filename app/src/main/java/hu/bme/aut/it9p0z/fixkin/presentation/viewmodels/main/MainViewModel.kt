@@ -34,6 +34,13 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun decrementDailyConditionLogCounter() {
+        viewModelScope.launch {
+            repository.decrementDailyConditionLogCounter()
+        }
+    }
+
+
     private fun getAllConditionLog(): Flow<List<ConditionLog>> = repository.getAllConditionLogs()
 
     private fun getAllLifeQualityTestResultLog(): Flow<List<LifeQualityTestResultLog>> = repository.getAllLqtrLogs()

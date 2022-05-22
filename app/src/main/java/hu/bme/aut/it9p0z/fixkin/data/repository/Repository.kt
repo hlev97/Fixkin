@@ -114,6 +114,13 @@ class Repository @Inject constructor(
             }
     }
 
+    override suspend fun decrementDailyConditionLogCounter() {
+        dataStore.edit { preferences ->
+            val currentCounterValue = preferences[PreferenceKeys.dailyConditionLogCounter] ?: 0
+            preferences[PreferenceKeys.dailyConditionLogCounter] = currentCounterValue - 1
+        }
+    }
+
     override suspend fun initDailyConditionLogCounter() {
         dataStore.edit { preferences ->
             preferences[PreferenceKeys.dailyConditionLogCounter] = 0
