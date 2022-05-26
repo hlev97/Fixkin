@@ -1,5 +1,5 @@
 # Fixkin
-
+<a href="https://github.com/hlev97/Fixkin/blob/master/Fixkin_beszamolo.pdf" class="image fit" >Beszámoló</a>
 ![alt text](https://github.com/hlev97/Fixkin/blob/master/Screens.png?raw=true)
 
 A pszoriázis egy olyan autoimmun betegség, ami a társadalom kb. 2-4 %-át érinti. A betegség érintheti a bőrt, a körmöket, ízületeket és nagyon ritkán akár a nyálkahártyát is. A betegség nem halálos, de az esztétikai problémák mellett az érintettek különböző fertőzéseknek is sokkal inkább kitettek, illetve számos mentális betegség is könnyebben kialakulhat (pl. szociális szorongás, depresszió), ami tovább növelhetik a tünetek súlyosságát. A betegségre egyelőre nincs gyógymód, de tünetek enyhíthetőek, és a megfelelő terápiával (szteroid, szisztémás kezelés, biológiai terápia stb.) és életmóddal akár a tünetmentes állapot is elérhető.
